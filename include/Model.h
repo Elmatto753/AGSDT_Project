@@ -5,6 +5,7 @@
 #include <cstdlib>
 #include <iostream>
 #include <ngl/Obj.h>
+#include <Particle.h>
 
 class Model
 {
@@ -16,6 +17,9 @@ public:
 
   void loadModel(std::string _file);
   void draw();
+
+  void makeParticles();
+  std::vector<Particle> ParticleList;
 
 private:
 

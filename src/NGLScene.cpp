@@ -39,6 +39,7 @@ void NGLScene::initializeGL()
   glEnable(GL_MULTISAMPLE);
 
   Input.loadModel("models/Bomberman.obj");
+  Input.makeParticles();
 
 
 }
@@ -50,7 +51,11 @@ void NGLScene::paintGL()
   // clear the screen and depth buffer
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   glViewport(0,0,m_win.width,m_win.height);
-  Input.draw();
+  //Input.draw();
+  for(uint i = 0; i < Input.ParticleList.size(); i++)
+  {
+    Input.ParticleList.at(i).draw();
+  }
 
 }
 
