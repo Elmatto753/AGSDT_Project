@@ -1,6 +1,11 @@
 #ifndef NGLSCENE_H_
 #define NGLSCENE_H_
 #include <ngl/Vec3.h>
+#include <ngl/Transformation.h>
+#include <ngl/Colour.h>
+#include <ngl/Light.h>
+#include <ngl/ShaderLib.h>
+#include <ngl/Camera.h>
 #include "Model.h"
 
 #include <QOpenGLWindow>
@@ -75,10 +80,23 @@ private:
     /// @param _event the Qt Event structure
     //----------------------------------------------------------------------------------------------------------------------
     void wheelEvent( QWheelEvent *_event);
+
+    void loadToShader();
+
+
     /// @brief windows parameters for mouse control etc.
     WinParams m_win;
     /// position for our model
     ngl::Vec3 m_modelPos;
+
+    ngl::Vec3 m_lightPos;
+
+    ngl::Mat4 m_proj;
+    ngl::Mat4 m_view;
+
+    ngl::Camera cam;
+
+    ngl::Transformation m_transform;
 
     Model Input;
 

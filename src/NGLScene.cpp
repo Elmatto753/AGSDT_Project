@@ -38,12 +38,70 @@ void NGLScene::initializeGL()
   // enable multisampling for smoother drawing
   glEnable(GL_MULTISAMPLE);
 
+  ngl::ShaderLib *shader =ngl::ShaderLib::instance();
+
+  shader->createShaderProgram("Colour");
+  shader->attachShader("ColourVertex",ngl::ShaderType::VERTEX);
+  shader->attachShader("ColourFragment",ngl::ShaderType::FRAGMENT);
+
+  shader->loadShaderSource("ColourVertex","shaders/VertShader.glsl");
+  shader->loadShaderSource("ColourFragment","shaders/FragShader.glsl");
+
+  shader->compileShader("ColourVertex");
+  shader->compileShader("ColourFragment");
+
+  shader->attachShaderToProgram("Colour","ColourVertex");
+  shader->attachShaderToProgram("Colour","ColourFragment");
+  shader->linkProgramObject("Colour");
+  (*shader)["Colour"]->use();
+  shader->autoRegisterUniforms("Colour");
+  shader->printProperties();
+  shader->printRegisteredUniforms("Colour");
+
+  shader->setRegisteredUniform("Colour",1.0f,1.0f,1.0f,0.0f);
+  shader->setRegisteredUniform("lightPos",m_lightPos);
+  shader->setRegisteredUniform("lightDiffuse",1.0f,1.0f,1.0f,1.0f);
+
+  // Create the projection matrix
+  m_proj=ngl::perspective(90.0f,float(width()/height()),0.1,200);
+  m_view=ngl::lookAt(cam.getEye().toVec3(), cam.getLook().toVec3(), ngl::Vec3(0.0f, 1.0f, 0.0f));
+
   Input.loadModel("models/Bomberman.obj");
   Input.makeParticles();
 
 
 }
 
+void NGLScene::loadToShader()
+{
+  ngl::ShaderLib *shader=ngl::ShaderLib::instance();
+  shader->use("Colour");
+
+  ngl::Mat4 MV;
+  ngl::Mat4 MVP;
+  ngl::Mat3 normalMatrix;
+  ngl::Mat4 M;
+  ngl::Mat4 R;
+
+  shader->setRegisteredUniform("lightPos", m_lightPos);
+  M=m_transform.getMatrix()/**m_mouseGlobalTX*/;
+//  MV=  M*ngl::Mat4(cam.getSideVector().m_x, cam.getSideVector().m_y, cam.getSideVector().m_z, 0.0f,
+//                   0.0f,1.0f,0.0f,0.0f,
+//                   cam.getForwardVector().m_x, cam.getForwardVector().m_y, cam.getForwardVector().m_z, 0.0f,
+//                   1.0f,1.0f,1.0f,1.0f);
+  m_view = ngl::lookAt(cam.getEye().toVec3(), cam.getLook().toVec3(), ngl::Vec3(0.0f, 1.0f, 0.0f));
+//  R= m_transform.getRotation();
+  MV = M*m_view;
+  MVP = MV*m_proj;
+  normalMatrix=MV;
+  normalMatrix.inverse();
+//  shader->setShaderParamFromMat4("MV",MV);
+//  shader->setShaderParamFromMat4("MVP",MVP);
+//  shader->setShaderParamFromMat3("normalMatrix",normalMatrix);
+//  shader->setShaderParamFromMat4("M",M);
+  shader->setUniform("MVP",MVP);
+  shader->setShaderParam4f("Colour", 1.0f, 0.1f, 0.1f, 1.0f);
+}
 
 
 void NGLScene::paintGL()
@@ -54,8 +112,9 @@ void NGLScene::paintGL()
   //Input.draw();
   for(uint i = 0; i < Input.ParticleList.size(); i++)
   {
-    Input.ParticleList.at(i).draw();
+    Input.ParticleList.at(i)->draw();
   }
+//  Input.draw();
 
 }
 
@@ -67,7 +126,7 @@ void NGLScene::keyPressEvent(QKeyEvent *_event)
   // we then switch on the key value and set the camera in the GLWindow
   switch (_event->key())
   {
-  // escape key to quite
+  // escape key to quit
   case Qt::Key_Escape : QGuiApplication::exit(EXIT_SUCCESS); break;
   case Qt::Key_Space :
       m_win.spinXFace=0;

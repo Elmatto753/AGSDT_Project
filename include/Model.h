@@ -19,7 +19,7 @@ public:
   void draw();
 
   void makeParticles();
-  std::vector<Particle> ParticleList;
+  std::vector<Particle *> ParticleList;
 
 private:
 
