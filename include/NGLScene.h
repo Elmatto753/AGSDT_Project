@@ -83,13 +83,15 @@ private:
 
     void loadToShader();
 
+    void rotateCamAboutLook(float _x, float _y);
+
 
     /// @brief windows parameters for mouse control etc.
     WinParams m_win;
     /// position for our model
     ngl::Vec3 m_modelPos;
 
-    ngl::Vec3 m_lightPos;
+    ngl::Vec3 m_lightPos = ngl::Vec3(1.0f, 17.0f, 0.0f);
 
     ngl::Mat4 m_proj;
     ngl::Mat4 m_view;

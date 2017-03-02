@@ -63,6 +63,8 @@ void NGLScene::initializeGL()
   shader->setRegisteredUniform("lightDiffuse",1.0f,1.0f,1.0f,1.0f);
 
   // Create the projection matrix
+  cam.move(0.0, 2.0, 2.0);
+  cam.moveLook(0.0f, 3.0f, 0.0f);
   m_proj=ngl::perspective(90.0f,float(width()/height()),0.1,200);
   m_view=ngl::lookAt(cam.getEye().toVec3(), cam.getLook().toVec3(), ngl::Vec3(0.0f, 1.0f, 0.0f));
 
@@ -100,7 +102,14 @@ void NGLScene::loadToShader()
 //  shader->setShaderParamFromMat3("normalMatrix",normalMatrix);
 //  shader->setShaderParamFromMat4("M",M);
   shader->setUniform("MVP",MVP);
-  shader->setShaderParam4f("Colour", 1.0f, 0.1f, 0.1f, 1.0f);
+  shader->setShaderParam4f("Colour", 0.5f, 0.5f, 0.5f, 1.0f);
+}
+
+void NGLScene::rotateCamAboutLook(float _x, float _y)
+{
+  //float radius = ngl::Vec3(cam.getLook().toVec3() - cam.getEye().toVec3()).length();
+//  m_transform.addRotation(_x, _y, 0.0f);
+//  cam.moveEye(m_transform.getRotation().m_x, m_transform.getRotation().m_y, m_transform.getRotation().m_z);
 }
 
 
@@ -109,12 +118,18 @@ void NGLScene::paintGL()
   // clear the screen and depth buffer
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   glViewport(0,0,m_win.width,m_win.height);
-  //Input.draw();
+  m_transform.setRotation(0.0f, 0.0f, 0.0f);
+  m_transform.setScale(1.0f, 1.0f, 1.0f);
   for(uint i = 0; i < Input.ParticleList.size(); i++)
   {
+    m_transform.setPosition(Input.ParticleList.at(i)->getPosition());
+    Input.ParticleList.at(i)->setPosition(m_transform.getPosition());
+    loadToShader();
     Input.ParticleList.at(i)->draw();
   }
 //  Input.draw();
+
+  update();
 
 }
 

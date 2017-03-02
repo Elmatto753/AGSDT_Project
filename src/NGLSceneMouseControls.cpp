@@ -27,6 +27,7 @@ void NGLScene::mouseMoveEvent( QMouseEvent* _event )
     m_win.origYPos = _event->y();
     m_modelPos.m_x += INCREMENT * diffX;
     m_modelPos.m_y -= INCREMENT * diffY;
+    rotateCamAboutLook(diffX/100, diffY/100);
     update();
   }
 }

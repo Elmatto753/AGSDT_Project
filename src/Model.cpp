@@ -1,4 +1,5 @@
 #include "Model.h"
+#include <memory>
 
 
 Model::Model()
@@ -26,12 +27,11 @@ void Model::draw()
 void Model::makeParticles()
 {
   ParticleList.clear();
-  Particle *p;
   for(uint i = 0; i < mesh.getNumVerts(); i++)
   {
-    p = new Particle;
+    std::unique_ptr<Particle> p = make_unique<Particle>();
     p->setPosition(mesh.getVertexList().at(i));
     p->setID(i);
-    ParticleList.push_back(p);
+    ParticleList.push_back(std::move(p));
   }
 }

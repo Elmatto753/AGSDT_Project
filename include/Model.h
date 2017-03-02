@@ -19,7 +19,15 @@ public:
   void draw();
 
   void makeParticles();
-  std::vector<Particle *> ParticleList;
+
+  // To stick with C++11, implement C++14 function make_unique
+  template<typename T, typename ...Args>
+  std::unique_ptr<T> make_unique(Args&& ...args) const
+  {
+    return std::unique_ptr<T>( new T(std::forward<Args>(args)... ) );
+  }
+
+  std::vector<std::unique_ptr<Particle>> ParticleList;
 
 private:
 
