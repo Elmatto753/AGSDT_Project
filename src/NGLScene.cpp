@@ -70,6 +70,7 @@ void NGLScene::initializeGL()
 
   Input.loadModel("models/Bomberman.obj");
   Input.makeParticles();
+  //Input.move(ngl::Vec3(0.0f, -5.0f, 0.0f));
 
 
 }
@@ -120,14 +121,25 @@ void NGLScene::paintGL()
   glViewport(0,0,m_win.width,m_win.height);
   m_transform.setRotation(0.0f, 0.0f, 0.0f);
   m_transform.setScale(1.0f, 1.0f, 1.0f);
-  for(uint i = 0; i < Input.ParticleList.size(); i++)
+  for(uint i = 0; i < Input.CellList.size(); i++)
   {
-    m_transform.setPosition(Input.ParticleList.at(i)->getPosition());
-    Input.ParticleList.at(i)->setPosition(m_transform.getPosition());
+//    m_transform.setPosition(Input.ParticleList.at(i)->getPosition());
+//    Input.ParticleList.at(i)->setPosition(m_transform.getPosition());
+//    loadToShader();
+//    Input.ParticleList.at(i)->draw();
+    m_transform.setPosition(Input.CellList.at(i).max);
     loadToShader();
     Input.ParticleList.at(i)->draw();
   }
-//  Input.draw();
+
+  //Draw the model
+  m_transform.setPosition(Input.getPosition());
+  loadToShader();
+  Input.draw();
+
+//  m_transform.setPosition(Input.ParticleList.back()->getPosition());
+//  loadToShader();
+//  Input.ParticleList.back()->draw();
 
   update();
 
