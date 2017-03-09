@@ -3,9 +3,9 @@
 
 Particle::Particle()
 {
-  mesh.load("models/Sphere.obj");
-  mesh.scale(0.1, 0.1, 0.1);
-  mesh.createVAO();
+//  mesh.load("models/Sphere.obj");
+//  mesh.scale(0.1, 0.1, 0.1);
+//  mesh.createVAO();
 }
 
 Particle::~Particle()

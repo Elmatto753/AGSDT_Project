@@ -121,13 +121,23 @@ void NGLScene::paintGL()
   glViewport(0,0,m_win.width,m_win.height);
   m_transform.setRotation(0.0f, 0.0f, 0.0f);
   m_transform.setScale(1.0f, 1.0f, 1.0f);
+  static const GLfloat g_vertex_buffer_data[] =
+  {
+    -0.5f, -0.5f, 0.0f,
+    0.5f, -0.5f, 0.0f,
+    -0.5f, 0.5f, 0.0f,
+    0.5f, 0.5f, 0.0f
+  };
+
   for(uint i = 0; i < Input.CellList.size(); i++)
   {
 //    m_transform.setPosition(Input.ParticleList.at(i)->getPosition());
 //    Input.ParticleList.at(i)->setPosition(m_transform.getPosition());
 //    loadToShader();
 //    Input.ParticleList.at(i)->draw();
-    m_transform.setPosition(Input.CellList.at(i).max);
+    m_transform.setPosition(Input.ParticleList.at(i)->getPosition() +
+                            ngl::Vec3(cam.getViewMatrix().m_00, cam.getViewMatrix().m_10, cam.getViewMatrix().m_20) * -0.5f * 1.0f +
+                            cam.getUp().toVec3() * 0.5f * 1.0f);
     loadToShader();
     Input.ParticleList.at(i)->draw();
   }
