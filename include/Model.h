@@ -41,7 +41,7 @@ public:
     return std::unique_ptr<T>( new T(std::forward<Args>(args)... ) );
   }
 
-  std::vector<std::unique_ptr<Particle>> ParticleList;
+  std::vector<std::unique_ptr<ParticleContainer>> ParticleList;
 
   std::vector<cell> CellList;
 private:

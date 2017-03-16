@@ -49,13 +49,13 @@ void Model::makeParticles()
   Test.min = ngl::Vec3(mesh.getBBox().minX(), mesh.getBBox().minY(), mesh.getBBox().minZ());
   for(uint i = 0; i < mesh.getNumVerts(); i++)
   {
-    std::unique_ptr<Particle> p = make_unique<Particle>();
+    std::unique_ptr<ParticleContainer> p = make_unique<ParticleContainer>();
     p->setPosition(mesh.getVertexList().at(i) + m_Position);
     p->setID(i);
     ParticleList.push_back(std::move(p));
   }
 
-  std::unique_ptr<Particle> p = make_unique<Particle>();
+  std::unique_ptr<ParticleContainer> p = make_unique<ParticleContainer>();
   p->setPosition(Test.centre + m_Position);
   ParticleList.push_back(std::move(p));
 

@@ -4,13 +4,13 @@
 #include <ngl/Vec3.h>
 #include <ngl/Obj.h>
 
-class Particle
+class ParticleContainer
 {
 public:
 
-  Particle();
+  ParticleContainer();
 
-  ~Particle();
+  ~ParticleContainer();
 
   // Getter for particle's position
   ngl::Vec3 getPosition() { return m_Position; }
@@ -28,12 +28,14 @@ public:
   void setID(uint newID);
 
   // Set next particle
-  void setNext(Particle *_nextParticle);
+  void setNext(ParticleContainer *_nextParticle);
 
   // Move particle by amount delta
   void move(ngl::Vec3 delta);
 
   void draw();
+
+  void initBuffers();
 
 
 private:
@@ -46,6 +48,19 @@ private:
   uint m_next;
 
   uint m_ID;
+
+  // Buffers for particle generation (currently using billboards)
+
+
+
+  GLuint billboard_vertex_buffer;
+
+  GLuint particles_position_buffer;
+
+  GLuint particles_colour_buffer;
+
+
+
 
 };
 

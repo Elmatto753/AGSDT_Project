@@ -62,6 +62,8 @@ void NGLScene::initializeGL()
   shader->setRegisteredUniform("lightPos",m_lightPos);
   shader->setRegisteredUniform("lightDiffuse",1.0f,1.0f,1.0f,1.0f);
 
+
+
   // Create the projection matrix
   cam.move(0.0, 2.0, 2.0);
   cam.moveLook(0.0f, 3.0f, 0.0f);
@@ -121,13 +123,6 @@ void NGLScene::paintGL()
   glViewport(0,0,m_win.width,m_win.height);
   m_transform.setRotation(0.0f, 0.0f, 0.0f);
   m_transform.setScale(1.0f, 1.0f, 1.0f);
-  static const GLfloat g_vertex_buffer_data[] =
-  {
-    -0.5f, -0.5f, 0.0f,
-    0.5f, -0.5f, 0.0f,
-    -0.5f, 0.5f, 0.0f,
-    0.5f, 0.5f, 0.0f
-  };
 
   for(uint i = 0; i < Input.CellList.size(); i++)
   {
