@@ -124,18 +124,18 @@ void NGLScene::paintGL()
   m_transform.setRotation(0.0f, 0.0f, 0.0f);
   m_transform.setScale(1.0f, 1.0f, 1.0f);
 
-  for(uint i = 0; i < Input.CellList.size(); i++)
-  {
-//    m_transform.setPosition(Input.ParticleList.at(i)->getPosition());
-//    Input.ParticleList.at(i)->setPosition(m_transform.getPosition());
+//  for(uint i = 0; i < Input.CellList.size(); i++)
+//  {
+////    m_transform.setPosition(Input.ParticleList.at(i)->getPosition());
+////    Input.ParticleList.at(i)->setPosition(m_transform.getPosition());
+////    loadToShader();
+////    Input.ParticleList.at(i)->draw();
+//    m_transform.setPosition(Input.ParticleList.at(i)->getPosition() +
+//                            ngl::Vec3(cam.getViewMatrix().m_00, cam.getViewMatrix().m_10, cam.getViewMatrix().m_20) * -0.5f * 1.0f +
+//                            cam.getUp().toVec3() * 0.5f * 1.0f);
 //    loadToShader();
 //    Input.ParticleList.at(i)->draw();
-    m_transform.setPosition(Input.ParticleList.at(i)->getPosition() +
-                            ngl::Vec3(cam.getViewMatrix().m_00, cam.getViewMatrix().m_10, cam.getViewMatrix().m_20) * -0.5f * 1.0f +
-                            cam.getUp().toVec3() * 0.5f * 1.0f);
-    loadToShader();
-    Input.ParticleList.at(i)->draw();
-  }
+//  }
 
   //Draw the model
   m_transform.setPosition(Input.getPosition());

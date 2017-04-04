@@ -20,12 +20,14 @@ SOURCES+= $$PWD/src/main.cpp \
           $$PWD/src/NGLScene.cpp \
           $$PWD/src/NGLSceneMouseControls.cpp \
           $$PWD/src/Model.cpp \
-          $$PWD/src/Particle.cpp
+          $$PWD/src/Particle.cpp \
+          $$PWD/src/ParticleContainer.cpp
 # same for the .h files
 HEADERS+= $$PWD/include/NGLScene.h \
           $$PWD/include/WindowParams.h \
           $$PWD/include/Model.h \
-          $$PWD/include/Particle.h
+          $$PWD/include/Particle.h \
+          $$PWD/include/ParticleContainer.h
 # and add the include dir into the search path for Qt and make
 INCLUDEPATH +=./include
 # where our exe is going to live (root of project)
