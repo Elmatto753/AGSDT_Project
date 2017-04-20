@@ -21,8 +21,11 @@ public:
   // Getter for next particle's ID
   uint getNext() { return m_next; }
 
-  ngl::Obj getMesh() { return mesh; }
+  const ngl::Obj* getMesh() { return mesh; }
 
+  float getBondStrength() { return m_bondStrength; }
+
+  int getMeshSize() const { return m_meshSize; }
   // Set particle's position in the world
   void setPosition(ngl::Vec3 newPos);
 
@@ -37,17 +40,25 @@ public:
 
   void draw();
 
+  void loadModel(std::string _file);
+
 
 private:
 
 
   ngl::Vec3 m_Position;
-  ngl::Obj mesh;
+
+  ngl::Obj *mesh;
+  uint m_meshSize;
 
   // ID of next particle
   uint m_next;
 
+  std::vector<Particle> connectedParticles;
+
   uint m_ID;
+
+  float m_bondStrength;
 
 
 

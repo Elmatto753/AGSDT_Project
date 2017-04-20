@@ -70,6 +70,8 @@ void NGLScene::initializeGL()
   m_proj=ngl::perspective(90.0f,float(width()/height()),0.1,200);
   m_view=ngl::lookAt(cam.getEye().toVec3(), cam.getLook().toVec3(), ngl::Vec3(0.0f, 1.0f, 0.0f));
 
+  m_Container.initBuffers();
+
   Input.loadModel("models/Bomberman.obj");
   Input.makeParticles();
   //Input.move(ngl::Vec3(0.0f, -5.0f, 0.0f));
@@ -118,12 +120,18 @@ void NGLScene::rotateCamAboutLook(float _x, float _y)
 
 void NGLScene::paintGL()
 {
+  glViewport(0,0,m_win.width,m_win.height);
   // clear the screen and depth buffer
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-  glViewport(0,0,m_win.width,m_win.height);
   m_transform.setRotation(0.0f, 0.0f, 0.0f);
   m_transform.setScale(1.0f, 1.0f, 1.0f);
 
+  glEnableClientState(GL_VERTEX_ARRAY);
+  glBindBuffer(GL_ARRAY_BUFFER, m_Container.getBuffer());
+  glVertexPointer(3, GL_FLOAT, 0, 0);
+  glDrawArraysInstanced( GL_TRIANGLE_STRIP, 0, m_Container.getBufferSize(), m_Container.getNumParticles() );
+  std::cout<< m_Container.getBufferSize();
+  std::cout<<"2";
 //  for(uint i = 0; i < Input.CellList.size(); i++)
 //  {
 ////    m_transform.setPosition(Input.ParticleList.at(i)->getPosition());

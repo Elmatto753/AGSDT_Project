@@ -7,6 +7,7 @@
 #include <ngl/ShaderLib.h>
 #include <ngl/Camera.h>
 #include "Model.h"
+#include "ParticleContainer.h"
 
 #include <QOpenGLWindow>
 #include "WindowParams.h"
@@ -101,6 +102,8 @@ private:
     ngl::Transformation m_transform;
 
     Model Input;
+
+    ParticleContainer m_Container;
 
 
 

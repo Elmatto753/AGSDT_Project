@@ -3,14 +3,20 @@
 
 Particle::Particle()
 {
-  mesh.load("models/Sphere.obj");
-  mesh.scale(0.1, 0.1, 0.1);
-  mesh.createVAO();
+//  loadModel("models/Sphere.obj");
 }
 
 Particle::~Particle()
 {
 
+}
+
+void Particle::loadModel(std::string _file)
+{
+  mesh->load(_file);
+  mesh->scale(0.1, 0.1, 0.1);
+  mesh->createVAO();
+  m_meshSize = mesh->getIndices().size();
 }
 
 void Particle::setPosition(ngl::Vec3 newPos)
@@ -35,7 +41,7 @@ void Particle::move(ngl::Vec3 delta)
 
 void::Particle::draw()
 {
-  mesh.calcDimensions();
-  mesh.draw();
+  mesh->calcDimensions();
+  mesh->draw();
 }
 

@@ -2,7 +2,7 @@
 
 ParticleContainer::ParticleContainer()
 {
-
+  m_numParticles = 10;
 }
 
 ParticleContainer::~ParticleContainer()
@@ -12,6 +12,7 @@ ParticleContainer::~ParticleContainer()
 
 void ParticleContainer::initBuffers()
 {
+  baseParticle->loadModel("models/Bomberman.obj");
 //  g_vertex_buffer_data[0] =
 //  {
 //    -0.5f, -0.5f, 0.0f,
@@ -44,7 +45,8 @@ void ParticleContainer::initBuffers()
   glBindBuffer(GL_ARRAY_BUFFER, m_buffer);
   glBufferData(GL_ARRAY_BUFFER, m_numParticles * sizeof(Particle), &particleList[0], GL_STATIC_DRAW);
 
-  glBindVertexArray(baseParticle->getMesh().mapVAOVerts()); // not sure if this accesses the VAO, may even be done by ngl
+
+//  glBindVertexArray(baseParticle->getMesh()->mapVAOVerts()); // not sure if this accesses the VAO, may even be done by ngl
 
 }
 

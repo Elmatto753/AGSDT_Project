@@ -5,7 +5,7 @@
 #include <cstdlib>
 #include <iostream>
 #include <ngl/Obj.h>
-#include <Particle.h>
+#include "Particle.h"
 
 class Model
 {
