@@ -15,14 +15,13 @@ Model::~Model()
 
 void Model::loadModel(std::string _file)
 {
-  mesh.load(_file);
-  mesh.createVAO();
-  mesh.getBBox();
+  mesh.reset(new ngl::Obj(_file));
+  mesh->createVAO();
 }
 
 void Model::draw()
 {
-  mesh.draw();
+  mesh->draw();
 }
 
 void Model::setPosition(ngl::Vec3 _newPos)
@@ -64,9 +63,9 @@ void Model::makeParticles()
 void Model::makeCells(uint numCells)
 {
 
-  float XDepth = mesh.getBBox().maxX() - mesh.getBBox().minX();
-  float YDepth = mesh.getBBox().maxY() - mesh.getBBox().minY();
-  float ZDepth = mesh.getBBox().maxZ() - mesh.getBBox().minZ();
+  float XDepth = mesh->getBBox().maxX() - mesh->getBBox().minX();
+  float YDepth = mesh->getBBox().maxY() - mesh->getBBox().minY();
+  float ZDepth = mesh->getBBox().maxZ() - mesh->getBBox().minZ();
 
   float XIncrement = XDepth / numCells;
   float YIncrement = YDepth / numCells;
@@ -79,10 +78,12 @@ void Model::makeCells(uint numCells)
       for(uint k = 0; k < numCells; k++)
       {
         cell c;
-        c.min = ngl::Vec3(mesh.getBBox().minX() + (i * XIncrement), mesh.getBBox().minY() + (j * YIncrement), mesh.getBBox().minZ() + (k * ZIncrement));
-        c.max = ngl::Vec3(mesh.getBBox().maxX() - (((numCells - 1) - i) * XIncrement),
-                          mesh.getBBox().maxY() - (((numCells - 1) - j) * YIncrement),
-                          mesh.getBBox().maxZ() - (((numCells - 1) - k) * ZIncrement));
+        c.min = ngl::Vec3(mesh->getBBox().minX() + (i * XIncrement),
+                          mesh->getBBox().minY() + (j * YIncrement),
+                          mesh->getBBox().minZ() + (k * ZIncrement));
+        c.max = ngl::Vec3(mesh->getBBox().maxX() - (((numCells - 1) - i) * XIncrement),
+                          mesh->getBBox().maxY() - (((numCells - 1) - j) * YIncrement),
+                          mesh->getBBox().maxZ() - (((numCells - 1) - k) * ZIncrement));
         CellList.push_back(c);
       }
     }

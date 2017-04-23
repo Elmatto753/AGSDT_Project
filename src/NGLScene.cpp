@@ -41,6 +41,9 @@ void NGLScene::initializeGL()
   Input.loadModel("models/Bomberman.obj");
   Input.makeParticles();
   m_Container.loadParticleModel();
+  cam.set(ngl::Vec3(0.0f, 100.0f, 280.0f), ngl::Vec3(0.0f, 10.0f, 0.0f), ngl::Vec3(0.0f, 1.0f, 0.0f));
+
+  cam.setShape(45.0f, 720.0f/576.0f, 0.05f, 350.0f);
 
   ngl::ShaderLib *shader =ngl::ShaderLib::instance();
 
@@ -56,8 +59,11 @@ void NGLScene::initializeGL()
 
   shader->attachShaderToProgram("Colour","ColourVertex");
   shader->attachShaderToProgram("Colour","ColourFragment");
+
   shader->linkProgramObject("Colour");
+
   (*shader)["Colour"]->use();
+
   shader->autoRegisterUniforms("Colour");
   shader->printProperties();
   shader->printRegisteredUniforms("Colour");
@@ -69,8 +75,6 @@ void NGLScene::initializeGL()
 
 
   // Create the projection matrix
-  cam.move(0.0, 2.0, 2.0);
-  cam.moveLook(0.0f, 3.0f, 0.0f);
   m_proj=ngl::perspective(90.0f,float(width()/height()),0.1,200);
   m_view=ngl::lookAt(cam.getEye().toVec3(), cam.getLook().toVec3(), ngl::Vec3(0.0f, 1.0f, 0.0f));
 
@@ -149,9 +153,12 @@ void NGLScene::paintGL()
 //  std::cout<<Input.getPosition().m_x<<" "<<Input.getPosition().m_y<<" "<<Input.getPosition().m_z<<"\n";
   m_transform.setPosition(Input.getPosition());
   loadToShader();
-  Input.draw();
+  Input.getMesh()->bindVAO();
 
   loadToShader();
+
+  glDrawArraysInstanced(GL_TRIANGLES, 0, Input.getMesh()->getMeshSize(), 10);
+  Input.getMesh()->unbindVAO();
   m_Container.drawParticles();
 
 //  m_transform.setPosition(Input.ParticleList.back()->getPosition());

@@ -18,6 +18,7 @@ public:
   void loadModel(std::string _file);
   void draw();
   ngl::Vec3 getPosition() { return m_Position; }
+  std::shared_ptr<ngl::Obj> getMesh() { return mesh; }
   void setPosition(ngl::Vec3 _newPos);
   void move(ngl::Vec3 _delta);
 
@@ -45,7 +46,7 @@ private:
     ngl::Vec3 max;
     ngl::Vec3 centre = min + (0.5 * (max-min));
   };
-  ngl::Obj mesh;
+  std::shared_ptr<ngl::Obj> mesh;
 
   ngl::Vec3 m_Position;
 
