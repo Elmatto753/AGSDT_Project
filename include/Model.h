@@ -5,7 +5,7 @@
 #include <cstdlib>
 #include <iostream>
 #include <ngl/Obj.h>
-#include "Particle.h"
+#include "ParticleContainer.h"
 
 class Model
 {
@@ -27,12 +27,6 @@ public:
   // numCells * numCells * numCells
   void makeCells(uint numCells);
 
-  struct cell
-  {
-    ngl::Vec3 min;
-    ngl::Vec3 max;
-    ngl::Vec3 centre = min + (0.5 * (max-min));
-  };
 
   // To stick with C++11, implement C++14 function make_unique
   template<typename T, typename ...Args>
@@ -41,15 +35,23 @@ public:
     return std::unique_ptr<T>( new T(std::forward<Args>(args)... ) );
   }
 
-  std::vector<std::unique_ptr<Particle>> ParticleList;
+  //std::vector<std::unique_ptr<Particle>> ParticleList;
 
-  std::vector<cell> CellList;
 private:
 
+  struct cell
+  {
+    ngl::Vec3 min;
+    ngl::Vec3 max;
+    ngl::Vec3 centre = min + (0.5 * (max-min));
+  };
   ngl::Obj mesh;
 
   ngl::Vec3 m_Position;
 
+  std::vector<cell> CellList;
+
+  ParticleContainer m_Container;
 
 
 };

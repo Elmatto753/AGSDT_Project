@@ -32,32 +32,32 @@ void Model::setPosition(ngl::Vec3 _newPos)
 
 void Model::move(ngl::Vec3 _delta)
 {
-  m_Position += _delta;
-  for(uint i = 0; i < ParticleList.size(); i++)
-  {
-    ParticleList.at(i)->move(_delta);
-  }
+//  m_Position += _delta;
+//  for(uint i = 0; i < m_Container.particleList.size(); i++)
+//  {
+//    m_Container.particleList.at(i)->move(_delta);
+//  }
 }
 
 void Model::makeParticles()
 {
-  makeCells(5);
-  ParticleList.clear();
-  cell Test;
-  Test.centre = mesh.getBBox().center();
-  Test.max = ngl::Vec3(mesh.getBBox().maxX(), mesh.getBBox().maxY(), mesh.getBBox().maxZ());
-  Test.min = ngl::Vec3(mesh.getBBox().minX(), mesh.getBBox().minY(), mesh.getBBox().minZ());
-  for(uint i = 0; i < mesh.getNumVerts(); i++)
-  {
-    std::unique_ptr<Particle> p = make_unique<Particle>();
-    p->setPosition(mesh.getVertexList().at(i) + m_Position);
-    p->setID(i);
-    ParticleList.push_back(std::move(p));
-  }
+//  makeCells(5);
+//  ParticleList.clear();
+//  cell Test;
+//  Test.centre = mesh.getBBox().center();
+//  Test.max = ngl::Vec3(mesh.getBBox().maxX(), mesh.getBBox().maxY(), mesh.getBBox().maxZ());
+//  Test.min = ngl::Vec3(mesh.getBBox().minX(), mesh.getBBox().minY(), mesh.getBBox().minZ());
+//  for(uint i = 0; i < mesh.getNumVerts(); i++)
+//  {
+//    std::unique_ptr<Particle> p = make_unique<Particle>();
+//    p->setPosition(mesh.getVertexList().at(i) + m_Position);
+//    p->setID(i);
+//    ParticleList.push_back(std::move(p));
+//  }
 
-  std::unique_ptr<Particle> p = make_unique<Particle>();
-  p->setPosition(Test.centre + m_Position);
-  ParticleList.push_back(std::move(p));
+//  std::unique_ptr<Particle> p = make_unique<Particle>();
+//  p->setPosition(Test.centre + m_Position);
+//  ParticleList.push_back(std::move(p));
 
 }
 

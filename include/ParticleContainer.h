@@ -3,7 +3,7 @@
 
 #include <ngl/Vec3.h>
 #include <ngl/Obj.h>
-#include "Particle.h"
+//#include "Particle.h"
 
 
 class ParticleContainer
@@ -15,41 +15,49 @@ public:
 
   ~ParticleContainer();
 
-  void initBuffers();
+  void loadParticleModel();
 
-  void updateBuffers();
+  void drawParticles();
 
-  void bindBuffers();
-
-  GLuint getBuffer() { return m_buffer; }
-
-  uint getBufferSize() { return baseParticle->getMeshSize(); }
+  uint getBufferSize() { return baseParticle->m_meshSize; }
 
   int getNumParticles() { return m_numParticles; }
 
+  typedef struct Particle
+  {
+    ngl::Vec3 m_Position = ngl::Vec3(0.0f, 0.0f, 0.0f);
+
+    std::shared_ptr<ngl::Obj> m_Mesh;
+
+    uint m_meshSize = 0;
+
+    // ID of next particle
+    uint m_next = 0;
+
+    std::vector<Particle> connectedParticles;
+
+    uint m_ID = 0;
+
+    float m_bondStrength = 0;
+
+  } Particle;
+
+  Particle* getBaseParticle() { return baseParticle; }
+
+
 private:
-
-  // Buffers for particle generation (currently using billboards)
-
-//  GLuint billboard_vertex_buffer;
-
-//  GLuint particles_position_buffer;
-
-//  GLuint particles_colour_buffer;
-
-  GLuint m_buffer;
 
   int maxParticles = 100000;
 
-  GLfloat* g_particle_position_size_data = new GLfloat[maxParticles * 4];
+//  GLfloat* g_particle_position_size_data = new GLfloat[maxParticles * 4];
 
-  GLubyte* g_particle_colour_data = new GLubyte[maxParticles * 4];
+//  GLubyte* g_particle_colour_data = new GLubyte[maxParticles * 4];
 
   int m_numParticles;
 
-  Particle* baseParticle = new Particle;
+  Particle *baseParticle;
 
-  std::vector<Particle> particleList;
+  std::vector<Particle*> particleList;
 
 
 };
