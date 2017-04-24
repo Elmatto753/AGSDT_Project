@@ -21,13 +21,13 @@ void NGLScene::mouseMoveEvent( QMouseEvent* _event )
   // right mouse translate code
   else if ( m_win.translate && _event->buttons() == Qt::RightButton )
   {
-    int diffX      = static_cast<int>( _event->x() - m_win.origXPos );
-    int diffY      = static_cast<int>( _event->y() - m_win.origYPos );
+    int diffX = static_cast<int>( _event->x() - m_win.origXPos );
+    int diffY = static_cast<int>( _event->y() - m_win.origYPos );
     m_win.origXPos = _event->x();
     m_win.origYPos = _event->y();
-    m_modelPos.m_x += INCREMENT * diffX;
-    m_modelPos.m_y -= INCREMENT * diffY;
-    rotateCamAboutLook(diffX/100, diffY/100);
+    m_modelPos.m_x += ZOOM * diffX;
+    m_modelPos.m_y -= ZOOM * diffY;
+    //rotateCamAboutLook(diffX/100, diffY/100);
     update();
   }
 }

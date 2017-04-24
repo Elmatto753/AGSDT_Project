@@ -97,6 +97,11 @@ private:
     ngl::Mat4 m_proj;
     ngl::Mat4 m_view;
 
+    ngl::Mat4 m_mouseGlobalTX;
+
+    GLuint m_textureID;
+    GLuint m_tboID;
+
     ngl::Camera cam;
 
     ngl::Transformation m_transform;

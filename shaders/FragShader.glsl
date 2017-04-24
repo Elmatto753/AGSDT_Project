@@ -2,15 +2,11 @@
 
 layout (location=0) out vec4 fragColour;
 
-uniform vec4 Colour;
-uniform vec3 lightPos;
-uniform vec4 lightDiffuse;
-in vec3 normal;
+in vec4 Colour;
+in vec2 vertUV;
+uniform sampler2D tex;
 
 void main()
 {
-    fragColour=vec4(0.1, 0.1, 0.1, 0.1);
-    vec3 N=normalize(normal);
-    vec3 L=normalize(lightPos);
-    fragColour+=Colour*lightDiffuse*(dot(L,N));
+    fragColour=texture(tex, vertUV.st);
 }

@@ -4,6 +4,28 @@
 #include <ngl/Vec3.h>
 #include <ngl/Obj.h>
 
+
+
+typedef struct Particle
+{
+  ngl::Vec3 m_Position = ngl::Vec3(0.0f, 0.0f, 0.0f);
+
+  std::unique_ptr<ngl::Obj> m_Mesh;
+
+  uint m_meshSize;
+
+  // ID of next particle
+  uint m_next = 0;
+
+  std::vector<Particle> connectedParticles;
+
+  uint m_ID = 0;
+
+  float m_bondStrength = 0;
+
+} Particle;
+
+
 //class Particle2
 //{
 //public:

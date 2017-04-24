@@ -790,7 +790,8 @@ obj/NGLScene.o: src/NGLScene.cpp /opt/Qt5.7.0/5.7/gcc_64/include/QtGui/QMouseEve
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/QImage \
 		include/WindowParams.h \
 		/home/i7677716/NGL/include/ngl/NGLInit.h \
-		/home/i7677716/NGL/include/ngl/VAOPrimitives.h
+		/home/i7677716/NGL/include/ngl/VAOPrimitives.h \
+		/home/i7677716/NGL/include/ngl/Random.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o obj/NGLScene.o src/NGLScene.cpp
 
 obj/NGLSceneMouseControls.o: src/NGLSceneMouseControls.cpp include/NGLScene.h \
