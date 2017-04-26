@@ -86,6 +86,15 @@ private:
 
     void rotateCamAboutLook(float _x, float _y);
 
+    void setMouseGlobal(ngl::Vec3 _pos);
+
+    void setAllTransforms(ngl::Vec3 _pos, ngl::Vec3 _scale);
+    void setTransformAt(uint _at, ngl::Vec3 _pos, ngl::Vec3 _scale);
+
+    std::vector<ngl::Mat4> transforms;
+
+    GLuint tbo;
+
 
     /// @brief windows parameters for mouse control etc.
     WinParams m_win;

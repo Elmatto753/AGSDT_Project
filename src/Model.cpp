@@ -31,7 +31,7 @@ void Model::setPosition(ngl::Vec3 _newPos)
 
 void Model::move(ngl::Vec3 _delta)
 {
-//  m_Position += _delta;
+  m_Position += _delta;
 //  for(uint i = 0; i < m_Container.particleList.size(); i++)
 //  {
 //    m_Container.particleList.at(i)->move(_delta);

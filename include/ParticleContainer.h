@@ -25,6 +25,10 @@ public:
 
   Particle* getBaseParticle() { return baseParticle; }
 
+  std::vector<Particle*> getParticleList() { return particleList; }
+
+  void setParticlePosition(uint _at, ngl::Vec3 _position);
+
 private:
 
   int maxParticles = 100000;
