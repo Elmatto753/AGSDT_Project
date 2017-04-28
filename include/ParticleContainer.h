@@ -2,6 +2,7 @@
 #define PARTICLECONTAINER_H_
 
 #include <ngl/Vec3.h>
+#include <ngl/Mat4.h>
 #include <ngl/Obj.h>
 #include "Particle.h"
 
@@ -19,15 +20,19 @@ public:
 
   void drawParticles();
 
-  uint getBufferSize() { return baseParticle->m_meshSize; }
+  std::unique_ptr<ngl::Obj *> getMesh() { return m_Mesh; }
 
-  int getNumParticles() { return m_numParticles; }
+  uint getMeshSize() { return m_MeshSize; }
+
+  int getNumParticles() { return particleList.size(); }
 
   Particle* getBaseParticle() { return baseParticle; }
 
   std::vector<Particle*> getParticleList() { return particleList; }
 
   void setParticlePosition(uint _at, ngl::Vec3 _position);
+
+  void makeParticleAt(ngl::Vec3 _pos);
 
 private:
 
@@ -43,10 +48,12 @@ private:
 
   std::vector<Particle*> particleList;
 
+  std::unique_ptr<ngl::Obj *> m_Mesh;
+
+  uint m_MeshSize;
+
 
 };
-
-
 
 
 

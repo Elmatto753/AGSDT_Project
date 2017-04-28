@@ -42,8 +42,8 @@ void NGLScene::initializeGL()
 
   Input.loadModel("models/Bomberman.obj");
   //Input.makeParticles();
-  m_Container.loadParticleModel();
-  Input.makeCells(10);
+  Input.getContainer()->loadParticleModel();
+  Input.makeCells(20);
 
   cam.set(ngl::Vec3(3.0f, 5.0f, 20.0f),
           ngl::Vec3(0.0f, 6.0f, 0.0f),
@@ -88,7 +88,7 @@ void NGLScene::initializeGL()
 
   glGenBuffers(1, &tbo);
 
-  setAllTransforms(m_Container.getBaseParticle()->m_Position, ngl::Vec3(1.0f, 1.0f, 1.0f));
+  //setAllTransforms(Input.getContainer()->getBaseParticle()->m_Position, ngl::Vec3(1.0f, 1.0f, 1.0f));
 
 //  for(auto &t : transforms)
 //  {
@@ -100,10 +100,10 @@ void NGLScene::initializeGL()
 //  }
 
 
-  for(uint i = 0; i < m_Container.getParticleList().size(); i++)
-  {
-    m_Container.getParticleList().at(i)->m_Position = ngl::Vec3(0.0f, 0.0f, float(i));
-  }
+//  for(uint i = 0; i < Input.getContainer()->getParticleList().size(); i++)
+//  {
+//    Input.getContainer()->getParticleList().at(i)->m_Position = ngl::Vec3(0.0f, 0.0f, float(i));
+//  }
 
   glGenTextures(1, &m_tboID);
   glActiveTexture( GL_TEXTURE0 );
@@ -145,10 +145,10 @@ void NGLScene::rotateCamAboutLook(float _x, float _y)
 //  cam.moveEye(m_transform.getRotation().m_x, m_transform.getRotation().m_y, m_transform.getRotation().m_z);
 }
 
-void NGLScene::setAllTransforms(ngl::Vec3 _pos, ngl::Vec3 _scale)
+void NGLScene::setMultipleTransforms(ngl::Vec3 _pos, ngl::Vec3 _scale)
 {
-  transforms.resize(m_Container.getNumParticles());
-  std::cout<<"numParticles: "<<m_Container.getNumParticles()<<"\n";
+  transforms.resize(Input.getContainer()->getNumParticles());
+  std::cout<<"numParticles: "<<Input.getContainer()->getNumParticles()<<"\n";
   ngl::Mat4 pos;
   ngl::Mat4 scale;
 
@@ -156,7 +156,7 @@ void NGLScene::setAllTransforms(ngl::Vec3 _pos, ngl::Vec3 _scale)
 
   for(uint i = 0; i < transforms.size(); i++)
   {
-    position = m_Container.getParticleList().at(i)->m_Position;
+    position = Input.getContainer()->getParticleList().at(i)->m_Position;
 //    auto yScale=_scale;
     pos.translate(position.m_x, position.m_y, position.m_z);
     scale.scale(_scale.m_x, _scale.m_y, _scale.m_z);
@@ -173,16 +173,16 @@ void NGLScene::setAllTransforms(ngl::Vec3 _pos, ngl::Vec3 _scale)
 
 }
 
-void NGLScene::setTransformAt(uint _at, ngl::Vec3 _pos, ngl::Vec3 _scale)
+void NGLScene::setSingleTransform(ngl::Mat4 _transform, ngl::Vec3 _pos, ngl::Vec3 _scale)
 {
   ngl::Mat4 pos;
   ngl::Mat4 scale;
-  auto t = transforms.at(_at);
+//  auto t = transforms.at(_at);
   pos.translate(_pos.m_x, _pos.m_y, _pos.m_z);
   scale.scale(_scale.m_x, _scale.m_y, _scale.m_z);
-  t=scale*pos;
+  _transform=scale*pos;
   glBindBuffer(GL_TEXTURE_BUFFER, tbo);
-  glBufferData(GL_TEXTURE_BUFFER, transforms.size() * sizeof(ngl::Mat4), &transforms[_at].m_00, GL_STATIC_DRAW);
+  glBufferData(GL_TEXTURE_BUFFER, sizeof(ngl::Mat4), &_transform.m_00, GL_STATIC_DRAW);
   glGenTextures(1, &m_tboID);
   glActiveTexture( GL_TEXTURE0 );
   glBindTexture(GL_TEXTURE_BUFFER, m_tboID);
@@ -205,18 +205,19 @@ void NGLScene::paintGL()
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   glViewport(0,0,m_win.width,m_win.height);
 
-  //m_Container.getBaseParticle()->m_Position.m_y += 0.1;
+  //Input.getContainer()->getBaseParticle()->m_Position.m_y += 0.1;
 
   ngl::Mat4 rotX;
   ngl::Mat4 rotY;
   rotX.rotateX(m_win.spinXFace);
   rotY.rotateY(m_win.spinYFace);
 
-  setAllTransforms(ngl::Vec3(0.0f, 0.0f, 0.0f), ngl::Vec3(3.0f, 3.0f, 3.0f));
+  setSingleTransform(Input.getTransform() , ngl::Vec3(0.0f, 0.0f, 0.0f), ngl::Vec3(1.0f, 1.0f, 1.0f));
 
   m_mouseGlobalTX=rotY*rotX;
 
-  Input.setPosition(ngl::Vec3(0.0f, 10.0f, 0.0f));
+  Input.setPosition(ngl::Vec3(0.0f, 0.0f, 0.0f));
+  Input.getMesh()->drawBBox();
   setMouseGlobal(Input.getPosition());
 
 
@@ -231,11 +232,12 @@ void NGLScene::paintGL()
   glDrawArrays(GL_TRIANGLES, 0, Input.getMesh()->getMeshSize());
   Input.getMesh()->unbindVAO();
 
-  setAllTransforms(ngl::Vec3(0.0f, 0.0f, 0.0f), ngl::Vec3(1.0f, 1.0f, 1.0f));
+  setMultipleTransforms(ngl::Vec3(0.0f, 0.0f, 0.0f), ngl::Vec3(1.0f, 1.0f, 1.0f));
 
-  setMouseGlobal(m_Container.getBaseParticle()->m_Position);
+  //setMouseGlobal(Input.getContainer()->getBaseParticle()->m_Position);
 
-  m_Container.getBaseParticle()->m_Mesh->bindVAO();
+  std::shared_ptr<ngl::Obj*> tmpMesh = Input.getContainer()->getMesh();
+  (*tmpMesh)->bindVAO();
   loadToShader();
 
   glActiveTexture(GL_TEXTURE0);
@@ -243,8 +245,8 @@ void NGLScene::paintGL()
   glActiveTexture(GL_TEXTURE1);
   glBindTexture(GL_TEXTURE_2D, m_textureID);
 
-  glDrawArraysInstanced(GL_TRIANGLES, 0, m_Container.getBaseParticle()->m_Mesh->getMeshSize(), m_Container.getNumParticles());
-  m_Container.getBaseParticle()->m_Mesh->unbindVAO();
+  glDrawArraysInstanced(GL_TRIANGLES, 0, Input.getContainer()->getMeshSize(), Input.getContainer()->getNumParticles());
+  (*tmpMesh)->unbindVAO();
 
 
   update();

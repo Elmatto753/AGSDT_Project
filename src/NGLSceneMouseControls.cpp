@@ -25,8 +25,7 @@ void NGLScene::mouseMoveEvent( QMouseEvent* _event )
     int diffY = static_cast<int>( _event->y() - m_win.origYPos );
     m_win.origXPos = _event->x();
     m_win.origYPos = _event->y();
-    m_modelPos.m_x += ZOOM * diffX;
-    m_modelPos.m_y -= ZOOM * diffY;
+    cam.move(-ZOOM * diffX * 0.005f, ZOOM * diffY * 0.005f, 0.0f);
     //rotateCamAboutLook(diffX/100, diffY/100);
     update();
   }
@@ -76,11 +75,11 @@ void NGLScene::wheelEvent( QWheelEvent* _event )
   // check the diff of the wheel position (0 means no change)
   if ( _event->delta() > 0 )
   {
-    m_modelPos.m_z += ZOOM;
+    cam.move(0.0f, 0.0f, -ZOOM);
   }
   else if ( _event->delta() < 0 )
   {
-    m_modelPos.m_z -= ZOOM;
+    cam.move(0.0f, 0.0f, ZOOM);
   }
   update();
 }

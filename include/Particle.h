@@ -10,9 +10,9 @@ typedef struct Particle
 {
   ngl::Vec3 m_Position = ngl::Vec3(0.0f, 0.0f, 0.0f);
 
-  std::unique_ptr<ngl::Obj> m_Mesh;
+  //std::unique_ptr<ngl::Obj> m_Mesh;
 
-  uint m_meshSize;
+  //uint m_meshSize;
 
   // ID of next particle
   uint m_next = 0;
@@ -21,7 +21,9 @@ typedef struct Particle
 
   uint m_ID = 0;
 
-  float m_bondStrength = 0;
+  float m_bondStrength = 0.0f;
+
+  float m_Radius = 0.0f;
 
 } Particle;
 

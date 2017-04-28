@@ -88,8 +88,8 @@ private:
 
     void setMouseGlobal(ngl::Vec3 _pos);
 
-    void setAllTransforms(ngl::Vec3 _pos, ngl::Vec3 _scale);
-    void setTransformAt(uint _at, ngl::Vec3 _pos, ngl::Vec3 _scale);
+    void setMultipleTransforms(ngl::Vec3 _pos, ngl::Vec3 _scale);
+    void setSingleTransform(ngl::Mat4 _transform, ngl::Vec3 _pos, ngl::Vec3 _scale);
 
     std::vector<ngl::Mat4> transforms;
 
@@ -117,7 +117,7 @@ private:
 
     Model Input;
 
-    ParticleContainer m_Container;
+    //ParticleContainer m_Container;
 
 
 

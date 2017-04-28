@@ -9,19 +9,18 @@
 
 class Model
 {
-
-
 private:
 
   struct cell
   {
     ngl::Vec3 min;
     ngl::Vec3 max;
-    ngl::Vec3 centre = min + (0.5 * (max-min));
+    ngl::Vec3 centre;
   };
   std::shared_ptr<ngl::Obj> mesh;
 
   ngl::Vec3 m_Position;
+  ngl::Mat4 m_Transform;
 
   std::vector<cell> CellList;
 
@@ -35,6 +34,8 @@ public:
   void loadModel(std::string _file);
   void draw();
   ngl::Vec3 getPosition() { return m_Position; }
+  ParticleContainer* getContainer() { return &m_Container; }
+  ngl::Mat4 getTransform() { return m_Transform; }
   void setPosition(ngl::Vec3 _newPos);
   void move(ngl::Vec3 _delta);
 
@@ -52,11 +53,11 @@ public:
 
 
   // To stick with C++11, implement C++14 function make_unique
-  template<typename T, typename ...Args>
-  std::unique_ptr<T> make_unique(Args&& ...args) const
-  {
-    return std::unique_ptr<T>( new T(std::forward<Args>(args)... ) );
-  }
+//  template<typename T, typename ...Args>
+//  std::unique_ptr<T> make_unique(Args&& ...args) const
+//  {
+//    return std::unique_ptr<T>( new T(std::forward<Args>(args)... ) );
+//  }
 
   //std::vector<std::unique_ptr<Particle>> ParticleList;
 
