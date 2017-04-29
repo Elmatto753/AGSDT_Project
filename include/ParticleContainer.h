@@ -20,7 +20,7 @@ public:
 
   void drawParticles();
 
-  std::unique_ptr<ngl::Obj *> getMesh() { return m_Mesh; }
+  std::shared_ptr<ngl::Obj> getMesh() { return m_Mesh; }
 
   uint getMeshSize() { return m_MeshSize; }
 
@@ -33,6 +33,9 @@ public:
   void setParticlePosition(uint _at, ngl::Vec3 _position);
 
   void makeParticleAt(ngl::Vec3 _pos);
+
+  //returns true if particle is inside the mesh
+  bool testParticleInMesh(uint _at, ngl::Obj _mesh);
 
 private:
 
@@ -48,7 +51,7 @@ private:
 
   std::vector<Particle*> particleList;
 
-  std::unique_ptr<ngl::Obj *> m_Mesh;
+  std::shared_ptr<ngl::Obj> m_Mesh;
 
   uint m_MeshSize;
 

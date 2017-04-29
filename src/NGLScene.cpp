@@ -43,7 +43,7 @@ void NGLScene::initializeGL()
   Input.loadModel("models/Bomberman.obj");
   //Input.makeParticles();
   Input.getContainer()->loadParticleModel();
-  Input.makeCells(20);
+  Input.makeCells(20, 40, 20);
 
   cam.set(ngl::Vec3(3.0f, 5.0f, 20.0f),
           ngl::Vec3(0.0f, 6.0f, 0.0f),
@@ -148,7 +148,7 @@ void NGLScene::rotateCamAboutLook(float _x, float _y)
 void NGLScene::setMultipleTransforms(ngl::Vec3 _pos, ngl::Vec3 _scale)
 {
   transforms.resize(Input.getContainer()->getNumParticles());
-  std::cout<<"numParticles: "<<Input.getContainer()->getNumParticles()<<"\n";
+  //std::cout<<"numParticles: "<<Input.getContainer()->getNumParticles()<<"\n";
   ngl::Mat4 pos;
   ngl::Mat4 scale;
 
@@ -202,6 +202,7 @@ void NGLScene::setMouseGlobal(ngl::Vec3 _pos)
 void NGLScene::paintGL()
 {
   // clear the screen and depth buffer
+  //std::cout<<"PaintGL begin "<<durr<<"\n";
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   glViewport(0,0,m_win.width,m_win.height);
 
@@ -236,8 +237,7 @@ void NGLScene::paintGL()
 
   //setMouseGlobal(Input.getContainer()->getBaseParticle()->m_Position);
 
-  std::shared_ptr<ngl::Obj*> tmpMesh = Input.getContainer()->getMesh();
-  (*tmpMesh)->bindVAO();
+  Input.getContainer()->getMesh()->bindVAO();
   loadToShader();
 
   glActiveTexture(GL_TEXTURE0);
@@ -246,10 +246,12 @@ void NGLScene::paintGL()
   glBindTexture(GL_TEXTURE_2D, m_textureID);
 
   glDrawArraysInstanced(GL_TRIANGLES, 0, Input.getContainer()->getMeshSize(), Input.getContainer()->getNumParticles());
-  (*tmpMesh)->unbindVAO();
+  Input.getContainer()->getMesh()->unbindVAO();
 
 
   update();
+  //std::cout<<"PaintGL end "<<durr<<"\n";
+  //durr++;
 
 }
 

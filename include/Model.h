@@ -41,7 +41,7 @@ public:
 
   // Divides the mesh's BBox in the specified number of cells in each direction
   // numCells * numCells * numCells
-  void makeCells(uint numCells);
+  void makeCells(uint numCellsX, uint numCellsY, uint numCellsZ);
   cell getCell(uint _cellIndex) { if(_cellIndex < CellList.size())
                                         return CellList.at(_cellIndex); }
   int getNumCells() { return CellList.size(); }

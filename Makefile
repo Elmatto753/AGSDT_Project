@@ -604,6 +604,7 @@ obj/main.o: src/main.cpp /opt/Qt5.7.0/5.7/gcc_64/include/QtGui/QGuiApplication \
 		/home/i7677716/NGL/include/ngl/Image.h \
 		/home/i7677716/NGL/include/ngl/AbstractMesh.h \
 		include/ParticleContainer.h \
+		include/Particle.h \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/QOpenGLWindow \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qopenglwindow.h \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/QPaintDeviceWindow \
@@ -770,6 +771,7 @@ obj/NGLScene.o: src/NGLScene.cpp /opt/Qt5.7.0/5.7/gcc_64/include/QtGui/QMouseEve
 		/home/i7677716/NGL/include/ngl/Image.h \
 		/home/i7677716/NGL/include/ngl/AbstractMesh.h \
 		include/ParticleContainer.h \
+		include/Particle.h \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/QOpenGLWindow \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qopenglwindow.h \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/QPaintDeviceWindow \
@@ -933,6 +935,7 @@ obj/NGLSceneMouseControls.o: src/NGLSceneMouseControls.cpp include/NGLScene.h \
 		/home/i7677716/NGL/include/ngl/Image.h \
 		/home/i7677716/NGL/include/ngl/AbstractMesh.h \
 		include/ParticleContainer.h \
+		include/Particle.h \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/QOpenGLWindow \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qopenglwindow.h \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/QPaintDeviceWindow \
@@ -1080,7 +1083,9 @@ obj/Model.o: src/Model.cpp include/Model.h \
 		/home/i7677716/NGL/include/ngl/AbstractVAO.h \
 		/home/i7677716/NGL/include/ngl/RibExport.h \
 		/home/i7677716/NGL/include/ngl/NGLassert.h \
-		include/ParticleContainer.h
+		include/ParticleContainer.h \
+		/home/i7677716/NGL/include/ngl/Mat4.h \
+		include/Particle.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o obj/Model.o src/Model.cpp
 
 obj/Particle.o: src/Particle.cpp include/Particle.h \
@@ -1324,6 +1329,7 @@ obj/ParticleContainer.o: src/ParticleContainer.cpp include/ParticleContainer.h \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtOpenGL/qtopenglglobal.h \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/QSurfaceFormat \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qsurfaceformat.h \
+		/home/i7677716/NGL/include/ngl/Mat4.h \
 		/home/i7677716/NGL/include/ngl/Obj.h \
 		/home/i7677716/NGL/include/ngl/Texture.h \
 		/home/i7677716/NGL/include/ngl/Image.h \
@@ -1334,7 +1340,8 @@ obj/ParticleContainer.o: src/ParticleContainer.cpp include/ParticleContainer.h \
 		/home/i7677716/NGL/include/ngl/BBox.h \
 		/home/i7677716/NGL/include/ngl/AbstractVAO.h \
 		/home/i7677716/NGL/include/ngl/RibExport.h \
-		/home/i7677716/NGL/include/ngl/NGLassert.h
+		/home/i7677716/NGL/include/ngl/NGLassert.h \
+		include/Particle.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o obj/ParticleContainer.o src/ParticleContainer.cpp
 
 ####### Install

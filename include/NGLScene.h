@@ -95,6 +95,7 @@ private:
 
     GLuint tbo;
 
+    int durr = 0;
 
     /// @brief windows parameters for mouse control etc.
     WinParams m_win;
@@ -103,8 +104,8 @@ private:
 
     ngl::Vec3 m_lightPos = ngl::Vec3(1.0f, 17.0f, 0.0f);
 
-    ngl::Mat4 m_proj;
-    ngl::Mat4 m_view;
+//    ngl::Mat4 m_proj;
+//    ngl::Mat4 m_view;
 
     ngl::Mat4 m_mouseGlobalTX;
 

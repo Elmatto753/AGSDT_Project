@@ -23,9 +23,9 @@ void ParticleContainer::loadParticleModel()
 {
   //baseParticle->m_ID = 0;
   m_Mesh.reset(new ngl::Obj("models/Sphere.obj"));
-  (*m_Mesh)->scale(0.2f, 0.2f, 0.2f);
-  (*m_Mesh)->createVAO();
-  (*m_Mesh)->getMeshSize();
+  m_Mesh->scale(0.5f, 0.5f, 0.5f);
+  m_Mesh->createVAO();
+  //m_Mesh->getMeshSize();
 
 }
 
@@ -45,5 +45,15 @@ void ParticleContainer::makeParticleAt(ngl::Vec3 _pos)
   p->m_Position = _pos;
   p->m_ID = particleList.size();
   particleList.push_back(p);
+}
+
+bool ParticleContainer::testParticleInMesh(uint _at, ngl::Obj _mesh)
+{
+  Particle *p = particleList.at(_at);
+  ngl::Vec3 pos = p->m_Position;
+  for (auto f : _mesh.getFaceList())
+  {
+
+  }
 }
 
