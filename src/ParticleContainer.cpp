@@ -133,3 +133,21 @@ bool ParticleContainer::testParticleInMesh(Particle *p, std::shared_ptr<ngl::Obj
 
 }
 
+void ParticleContainer::setParticleNeighbours(float _Xtest, float _Ytest, float _Ztest)
+{
+  for(Particle *p : particleList)
+  {
+    for(Particle *q : particleList)
+    {
+      if(p->m_Position + ngl::Vec3(_Xtest, 0.0f, 0.0f) == q->m_Position ||
+         p->m_Position - ngl::Vec3(_Xtest, 0.0f, 0.0f) == q->m_Position ||
+         p->m_Position + ngl::Vec3(0.0f, _Ytest, 0.0f) == q->m_Position ||
+         p->m_Position - ngl::Vec3(0.0f, _Ytest, 0.0f) == q->m_Position ||
+         p->m_Position + ngl::Vec3(0.0f, 0.0f, _Ztest) == q->m_Position ||
+         p->m_Position - ngl::Vec3(0.0f, 0.0f, _Ztest) == q->m_Position)
+      {
+        p->connectedParticles.push_back(q);
+      }
+    }
+  }
+}

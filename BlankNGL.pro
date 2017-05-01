@@ -29,8 +29,35 @@ HEADERS+= $$PWD/include/NGLScene.h \
           $$PWD/include/Particle.h \
           $$PWD/include/Ray.h \
           $$PWD/include/ParticleContainer.h
+# Cuda sources
+#CUDA_SOURCES += $$PWD/src/ParticleContainer.cu
+# Location of the CUDA Toolkit binaries and libraries
+#CUDA_DIR += /usr/local/cuda-5.0
+
 # and add the include dir into the search path for Qt and make
 INCLUDEPATH +=./include
+#              $$CUDA_DIR/include
+#QMAKE_LIBDIR += $$CUDA_DIR/lib64
+#CUDA_ARCH = sm_20
+
+#NVCCFLAGS     = --compiler-options -fno-strict-aliasing -use_fast_math --ptxas-options=-v
+
+# Prepare the extra compiler configuration
+#CUDA_INC = $$join(INCLUDEPATH,' -I','-I',' ')
+
+#cuda.commands = $$CUDA_DIR/bin/nvcc -m64 -O3 -arch=$$CUDA_ARCH -c $$NVCCFLAGS \
+#                $$CUDA_INC $$LIBS  ${QMAKE_FILE_NAME} -o ${QMAKE_FILE_OUT} \
+#               2>&1 | sed -r \"s/\\(([0-9]+)\\)/:\\1/g\" 1>&2
+# nvcc error printout format ever so slightly different from gcc
+# http://forums.nvidia.com/index.php?showtopic=171651
+
+#cuda.dependency_type = TYPE_C # there was a typo here. Thanks workmate!
+#cuda.depend_command = $$CUDA_DIR/bin/nvcc -O3 -M $$CUDA_INC $$NVCCFLAGS   ${QMAKE_FILE_NAME}
+
+#cuda.input = CUDA_SOURCES
+#cuda.output = ${OBJECTS_DIR}${QMAKE_FILE_BASE}_cuda.o
+# Tell Qt that we want add more stuff to the Makefile
+#QMAKE_EXTRA_COMPILERS += cuda
 # where our exe is going to live (root of project)
 DESTDIR=./
 # add the glsl shader files

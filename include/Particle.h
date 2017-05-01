@@ -8,88 +8,45 @@
 
 typedef struct Particle
 {
+  //------------------------------------------------------------------------
+  /// @brief vector for particle's position
+  //------------------------------------------------------------------------
   ngl::Vec3 m_Position = ngl::Vec3(0.0f, 0.0f, 0.0f);
-
 //  std::shared_ptr<ngl::Obj> m_Mesh;
 
   //uint m_meshSize;
 
-  // ID of next particle
+
+  //------------------------------------------------------------------------
+  /// @brief ID of next particle
+  //------------------------------------------------------------------------
   uint m_next = 0;
 
-  std::vector<Particle> connectedParticles;
+  //------------------------------------------------------------------------
+  /// @brief pointers to neighbouring particles
+  //------------------------------------------------------------------------
+  std::vector<Particle *> connectedParticles;
 
+  //------------------------------------------------------------------------
+  /// @brief particle ID
+  //------------------------------------------------------------------------
   uint m_ID = 0;
 
-  float m_bondStrength = 0.0f;
+  //------------------------------------------------------------------------
+  /// @brief strength of connection to other particles (the more particles connected, the stronger the particle
+  //------------------------------------------------------------------------
+  float m_BondStrength = 0.0f;
 
+  //------------------------------------------------------------------------
+  /// @brief
+  //------------------------------------------------------------------------
   float m_Radius = 0.0f;
 
+  //------------------------------------------------------------------------
+  /// @brief force being exerted on this particle (if this exceeds bond strength, the particle will break)
+  //------------------------------------------------------------------------
+  float m_InForce = 0.0f;
+
 } Particle;
-
-
-//class Particle2
-//{
-//public:
-
-//  Particle2();
-
-//  ~Particle2();
-
-//  // Getter for particle's position
-//  ngl::Vec3 getPosition() { return m_Position; }
-
-//  // Getter for particle ID
-//  uint getID() { return m_ID; }
-
-//  // Getter for next particle's ID
-//  uint getNext() { return m_next; }
-
-//  const ngl::Obj* getMesh() { return mesh; }
-
-//  float getBondStrength() { return m_bondStrength; }
-
-//  int getMeshSize() const { return m_meshSize; }
-//  // Set particle's position in the world
-//  void setPosition(ngl::Vec3 newPos);
-
-//  // Set particle ID
-//  void setID(uint newID);
-
-//  // Set next particle
-//  void setNext(Particle2 *_nextParticle);
-
-//  // Move particle by amount delta
-//  void move(ngl::Vec3 delta);
-
-//  void draw();
-
-//  void loadModel(std::string _file);
-
-
-//private:
-
-
-//  ngl::Vec3 m_Position;
-
-//  ngl::Obj *mesh;
-//  uint m_meshSize;
-
-//  // ID of next particle
-//  uint m_next;
-
-//  std::vector<Particle2> connectedParticles;
-
-//  uint m_ID;
-
-//  float m_bondStrength;
-
-
-
-
-
-//};
-
-
 
 #endif

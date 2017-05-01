@@ -101,6 +101,9 @@ void Model::makeCells(uint numCellsX, uint numCellsY, uint numCellsZ)
     }
   }
 
+  std::cout<<"100% \nFinding neighbours\n";
+  m_Container.setParticleNeighbours(XIncrement, YIncrement, ZIncrement);
+
 
 }
 

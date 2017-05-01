@@ -35,6 +35,8 @@ public:
 
   void makeParticleAt(ngl::Vec3 _pos, std::shared_ptr<ngl::Obj> _mesh);
 
+  void setParticleNeighbours(float _Xtest, float _Ytest, float _Ztest);
+
 
   //-----------------------------------------------------------------------------------
   ///@brief tests for intersection between an upwards ray from particle and the mesh
