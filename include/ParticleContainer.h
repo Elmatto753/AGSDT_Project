@@ -5,6 +5,7 @@
 #include <ngl/Mat4.h>
 #include <ngl/Obj.h>
 #include "Particle.h"
+#include "Ray.h"
 
 
 class ParticleContainer
@@ -32,10 +33,16 @@ public:
 
   void setParticlePosition(uint _at, ngl::Vec3 _position);
 
-  void makeParticleAt(ngl::Vec3 _pos);
+  void makeParticleAt(ngl::Vec3 _pos, std::shared_ptr<ngl::Obj> _mesh);
 
-  //returns true if particle is inside the mesh
-  bool testParticleInMesh(uint _at, ngl::Obj _mesh);
+
+  //-----------------------------------------------------------------------------------
+  ///@brief tests for intersection between an upwards ray from particle and the mesh
+  /// @param[in] _at particle reference
+  /// @param[in] _mesh mesh to test against
+  ///@returns true if particle is inside the mesh
+  //-----------------------------------------------------------------------------------
+  bool testParticleInMesh(Particle *p, std::shared_ptr<ngl::Obj> _mesh);
 
 private:
 

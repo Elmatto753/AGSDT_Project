@@ -27,6 +27,7 @@ HEADERS+= $$PWD/include/NGLScene.h \
           $$PWD/include/WindowParams.h \
           $$PWD/include/Model.h \
           $$PWD/include/Particle.h \
+          $$PWD/include/Ray.h \
           $$PWD/include/ParticleContainer.h
 # and add the include dir into the search path for Qt and make
 INCLUDEPATH +=./include
@@ -35,6 +36,7 @@ DESTDIR=./
 # add the glsl shader files
 OTHER_FILES+= README.md \
               $$PWD/models/Bomberman.obj \
+              $$PWD/models/Bomberman_fixed.obj \
               $$PWD/models/Sphere.obj \
               $$PWD/shaders/VertShader.glsl \
               $$PWD/shaders/FragShader.glsl \

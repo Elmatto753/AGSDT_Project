@@ -65,6 +65,7 @@ DIST          = .qmake.stash \
 		include/WindowParams.h \
 		include/Model.h \
 		include/Particle.h \
+		include/Ray.h \
 		include/ParticleContainer.h src/main.cpp \
 		src/NGLScene.cpp \
 		src/NGLSceneMouseControls.cpp \
@@ -417,7 +418,7 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
-	$(COPY_FILE) --parents include/NGLScene.h include/WindowParams.h include/Model.h include/Particle.h include/ParticleContainer.h $(DISTDIR)/
+	$(COPY_FILE) --parents include/NGLScene.h include/WindowParams.h include/Model.h include/Particle.h include/Ray.h include/ParticleContainer.h $(DISTDIR)/
 	$(COPY_FILE) --parents src/main.cpp src/NGLScene.cpp src/NGLSceneMouseControls.cpp src/Model.cpp src/Particle.cpp src/ParticleContainer.cpp $(DISTDIR)/
 
 
@@ -605,6 +606,7 @@ obj/main.o: src/main.cpp /opt/Qt5.7.0/5.7/gcc_64/include/QtGui/QGuiApplication \
 		/home/i7677716/NGL/include/ngl/AbstractMesh.h \
 		include/ParticleContainer.h \
 		include/Particle.h \
+		include/Ray.h \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/QOpenGLWindow \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qopenglwindow.h \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/QPaintDeviceWindow \
@@ -772,6 +774,7 @@ obj/NGLScene.o: src/NGLScene.cpp /opt/Qt5.7.0/5.7/gcc_64/include/QtGui/QMouseEve
 		/home/i7677716/NGL/include/ngl/AbstractMesh.h \
 		include/ParticleContainer.h \
 		include/Particle.h \
+		include/Ray.h \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/QOpenGLWindow \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qopenglwindow.h \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/QPaintDeviceWindow \
@@ -936,6 +939,7 @@ obj/NGLSceneMouseControls.o: src/NGLSceneMouseControls.cpp include/NGLScene.h \
 		/home/i7677716/NGL/include/ngl/AbstractMesh.h \
 		include/ParticleContainer.h \
 		include/Particle.h \
+		include/Ray.h \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/QOpenGLWindow \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qopenglwindow.h \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/QPaintDeviceWindow \
@@ -1085,7 +1089,8 @@ obj/Model.o: src/Model.cpp include/Model.h \
 		/home/i7677716/NGL/include/ngl/NGLassert.h \
 		include/ParticleContainer.h \
 		/home/i7677716/NGL/include/ngl/Mat4.h \
-		include/Particle.h
+		include/Particle.h \
+		include/Ray.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o obj/Model.o src/Model.cpp
 
 obj/Particle.o: src/Particle.cpp include/Particle.h \
@@ -1341,7 +1346,8 @@ obj/ParticleContainer.o: src/ParticleContainer.cpp include/ParticleContainer.h \
 		/home/i7677716/NGL/include/ngl/AbstractVAO.h \
 		/home/i7677716/NGL/include/ngl/RibExport.h \
 		/home/i7677716/NGL/include/ngl/NGLassert.h \
-		include/Particle.h
+		include/Particle.h \
+		include/Ray.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o obj/ParticleContainer.o src/ParticleContainer.cpp
 
 ####### Install

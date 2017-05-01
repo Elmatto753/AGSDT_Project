@@ -40,9 +40,10 @@ void NGLScene::initializeGL()
   // enable multisampling for smoother drawing
   glEnable(GL_MULTISAMPLE);
 
-  Input.loadModel("models/Bomberman.obj");
+  Input.loadModel("models/Bomberman_fixed.obj");
   //Input.makeParticles();
   Input.getContainer()->loadParticleModel();
+  std::cout<<"Filling mesh with particles...\n";
   Input.makeCells(20, 40, 20);
 
   cam.set(ngl::Vec3(3.0f, 5.0f, 20.0f),
@@ -222,16 +223,16 @@ void NGLScene::paintGL()
   setMouseGlobal(Input.getPosition());
 
 
-  Input.getMesh()->bindVAO();
-  loadToShader();
+//  Input.getMesh()->bindVAO();
+//  loadToShader();
 
-  glActiveTexture(GL_TEXTURE0);
-  glBindTexture(GL_TEXTURE_BUFFER, m_tboID);
-  glActiveTexture(GL_TEXTURE1);
-  glBindTexture(GL_TEXTURE_2D, m_textureID);
+//  glActiveTexture(GL_TEXTURE0);
+//  glBindTexture(GL_TEXTURE_BUFFER, m_tboID);
+//  glActiveTexture(GL_TEXTURE1);
+//  glBindTexture(GL_TEXTURE_2D, m_textureID);
 
-  glDrawArrays(GL_TRIANGLES, 0, Input.getMesh()->getMeshSize());
-  Input.getMesh()->unbindVAO();
+//  glDrawArrays(GL_TRIANGLES, 0, Input.getMesh()->getMeshSize());
+//  Input.getMesh()->unbindVAO();
 
   setMultipleTransforms(ngl::Vec3(0.0f, 0.0f, 0.0f), ngl::Vec3(1.0f, 1.0f, 1.0f));
 

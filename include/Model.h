@@ -17,7 +17,7 @@ private:
     ngl::Vec3 max;
     ngl::Vec3 centre;
   };
-  std::shared_ptr<ngl::Obj> mesh;
+  std::shared_ptr<ngl::Obj> m_Mesh;
 
   ngl::Vec3 m_Position;
   ngl::Mat4 m_Transform;
@@ -46,7 +46,7 @@ public:
                                         return CellList.at(_cellIndex); }
   int getNumCells() { return CellList.size(); }
 
-  std::shared_ptr<ngl::Obj> getMesh() { return mesh; }
+  std::shared_ptr<ngl::Obj> getMesh() { return m_Mesh; }
 
   void makeParticles();
 
