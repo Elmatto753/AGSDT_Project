@@ -8,6 +8,7 @@
 #include <ngl/Camera.h>
 #include "Model.h"
 #include "ParticleContainer.h"
+#include "ImpactObject.h"
 
 #include <QOpenGLWindow>
 #include "WindowParams.h"
@@ -95,7 +96,7 @@ private:
 
     GLuint tbo;
 
-    int durr = 0;
+//    int durr = 0;
 
     /// @brief windows parameters for mouse control etc.
     WinParams m_win;
@@ -117,6 +118,8 @@ private:
     ngl::Transformation m_transform;
 
     Model Input;
+
+    ImpactObject Impact;
 
     //ParticleContainer m_Container;
 

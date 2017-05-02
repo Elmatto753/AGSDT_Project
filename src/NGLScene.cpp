@@ -40,11 +40,11 @@ void NGLScene::initializeGL()
   // enable multisampling for smoother drawing
   glEnable(GL_MULTISAMPLE);
 
-  Input.loadModel("models/Bomberman_fixed.obj");
+  Input.loadMesh("models/Bomberman_fixed.obj");
   //Input.makeParticles();
   Input.getContainer()->loadParticleModel();
   std::cout<<"Filling mesh with particles...\n";
-  Input.makeCells(20, 40, 20);
+  Input.makeParticles(20, 40, 20);
 
   cam.set(ngl::Vec3(3.0f, 5.0f, 20.0f),
           ngl::Vec3(0.0f, 6.0f, 0.0f),
@@ -112,7 +112,7 @@ void NGLScene::initializeGL()
 
   glTexBuffer(GL_TEXTURE_BUFFER, GL_RGBA32F, tbo);
 
-  ngl::Texture t("models/Firefox_wallpaper.png");
+  ngl::Texture t("models/ParticleTexture.png");
   t.setMultiTexture(1);
   m_textureID=t.setTextureGL();
   shader->setShaderParam1i("tex",1);

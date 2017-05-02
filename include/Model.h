@@ -1,13 +1,10 @@
 #ifndef MODEL_H_
 #define MODEL_H_
 
-#include <cstdio>
-#include <cstdlib>
-#include <iostream>
-#include <ngl/Obj.h>
+#include "BaseObject.h"
 #include "ParticleContainer.h"
 
-class Model
+class Model : public BaseObject
 {
 private:
 
@@ -17,9 +14,8 @@ private:
     ngl::Vec3 max;
     ngl::Vec3 centre;
   };
-  std::shared_ptr<ngl::Obj> m_Mesh;
+//  std::shared_ptr<ngl::Obj> m_Mesh;
 
-  ngl::Vec3 m_Position;
   ngl::Mat4 m_Transform;
 
   std::vector<cell> CellList;
@@ -31,24 +27,20 @@ public:
   Model();
   ~Model();
 
-  void loadModel(std::string _file);
   void draw();
-  ngl::Vec3 getPosition() { return m_Position; }
+  void loadMesh(std::string _file);
   ParticleContainer* getContainer() { return &m_Container; }
   ngl::Mat4 getTransform() { return m_Transform; }
-  void setPosition(ngl::Vec3 _newPos);
   void move(ngl::Vec3 _delta);
 
   // Divides the mesh's BBox in the specified number of cells in each direction
   // numCells * numCells * numCells
-  void makeCells(uint numCellsX, uint numCellsY, uint numCellsZ);
+  void makeParticles(uint numCellsX, uint numCellsY, uint numCellsZ);
   cell getCell(uint _cellIndex) { if(_cellIndex < CellList.size())
                                         return CellList.at(_cellIndex); }
   int getNumCells() { return CellList.size(); }
 
-  std::shared_ptr<ngl::Obj> getMesh() { return m_Mesh; }
-
-  void makeParticles();
+//  std::shared_ptr<ngl::Obj> getMesh() { return m_Mesh; }
 
 
 

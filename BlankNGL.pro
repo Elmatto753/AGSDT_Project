@@ -16,28 +16,64 @@ MOC_DIR=moc
 # on a mac we don't create a .app bundle file ( for ease of multiplatform use)
 CONFIG-=app_bundle
 # Auto include all .cpp files in the project src directory (can specifiy individually if required)
-SOURCES+= $$PWD/src/main.cpp \
+SOURCES+= $$PWD/src/BaseObject.cpp \
+          $$PWD/src/ImpactObject.cpp \
+          $$PWD/src/main.cpp \
+          $$PWD/src/Model.cpp \
           $$PWD/src/NGLScene.cpp \
           $$PWD/src/NGLSceneMouseControls.cpp \
-          $$PWD/src/Model.cpp \
           $$PWD/src/Particle.cpp \
           $$PWD/src/ParticleContainer.cpp
 # same for the .h files
-HEADERS+= $$PWD/include/NGLScene.h \
+HEADERS+= $$PWD/include/BaseObject.h \
+          $$PWD/include/ImpactObject.h \
+          $$PWD/include/NGLScene.h \
           $$PWD/include/WindowParams.h \
           $$PWD/include/Model.h \
           $$PWD/include/Particle.h \
           $$PWD/include/Ray.h \
           $$PWD/include/ParticleContainer.h
 # Cuda sources
-#CUDA_SOURCES += $$PWD/src/ParticleContainer.cu
-# Location of the CUDA Toolkit binaries and libraries
-#CUDA_DIR += /usr/local/cuda-5.0
+CUDA_SOURCES += $$PWD/cuda/src/ParticleContainer.cu
+
+CUDA_HEADERS += $$PWD/cuda/include/ParticleContainer.cuh
+
+#Cuda objects
+CUDA_OBJECTS_DIR = $$PWD/cuda/obj
 
 # and add the include dir into the search path for Qt and make
 INCLUDEPATH +=./include
-#              $$CUDA_DIR/include
-#QMAKE_LIBDIR += $$CUDA_DIR/lib64
+INCLUDEPATH += $$PWD/cuda/include
+
+CUDA_PATH = "/usr"
+NVCC_CXXFLAGS += -ccbin g++
+NVCC = $(CUDA_PATH)/bin/nvcc
+
+NVCC_OPTIONS = --use_fast_math
+
+OS_SIZE = 64
+# Compute capabilities
+SMS = 50 52
+
+for(sm, SMS) {
+  GENCODE_FLAGS += -gencode arch=compute_$$sm,code=sm_$$sm
+}
+
+INCLUDEPATH += /usr/include/cuda
+
+CUDA_INCLUDES = $$join(INCLUDEPATH, ' -I', '-I', '')
+
+QMAKE_LIBDIR += $$CUDA_PATH/lib
+LIBS += -lcudart
+
+OTHER_FILES += $$CUDA_SOURCES $$CUDA_HEADERS
+
+cuda.input = CUDA_SOURCES
+cuda.output = $$CUDA_OBJECTS_DIR/${QMAKE_FILE_BASE}_cuda.o
+cuda.commands = $$NVCC $$NVCC_CXXFLAGS -m$$OS_SIZE $$GENCODE_FLAGS -c -o ${QMAKE_FILE_OUT} ${QMAKE_FILE_NAME} $$NVCC_OPTIONS $$CUDA_INCLUDES
+cuda.dependency_type = TYPE_C
+
+QMAKE_EXTRA_COMPILERS += cuda
 #CUDA_ARCH = sm_20
 
 #NVCCFLAGS     = --compiler-options -fno-strict-aliasing -use_fast_math --ptxas-options=-v
@@ -67,7 +103,8 @@ OTHER_FILES+= README.md \
               $$PWD/models/Sphere.obj \
               $$PWD/shaders/VertShader.glsl \
               $$PWD/shaders/FragShader.glsl \
-              $$PWD/models/Firefox_wallpaper.png
+              $$PWD/models/Firefox_wallpaper.png \
+              $$PWD/models/ParticleTexture.png
 # were are going to default to a console app
 CONFIG += console
 # note each command you add needs a ; as it will be run as a single line

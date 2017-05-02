@@ -1,6 +1,12 @@
 #ifndef PARTICLECONTAINER_H_
 #define PARTICLECONTAINER_H_
 
+#ifdef __CUDACC__
+#define CUDA_CALLABLE_MEMBER __host__ __device__
+#else
+#define CUDA_CALLABLE_MEMBER
+#endif
+
 #include <ngl/Vec3.h>
 #include <ngl/Mat4.h>
 #include <ngl/Obj.h>
