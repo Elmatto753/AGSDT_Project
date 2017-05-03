@@ -6,6 +6,7 @@
 #include <iostream>
 #include <ngl/Obj.h>
 #include <ngl/Mat4.h>
+#include <QObject>
 
 class BaseObject
 {
@@ -13,6 +14,8 @@ public:
 
   BaseObject();
   ~BaseObject();
+
+public:
 
   ngl::Vec3 getPosition() { return m_Position; }
   virtual void setPosition(ngl::Vec3 _pos);
@@ -24,7 +27,6 @@ public:
 
   uint getMeshSize() { return m_MeshSize; }
 
-
 protected:
 
   ngl::Vec3 m_Position;
@@ -34,7 +36,6 @@ protected:
   ngl::Mat4 m_Transform;
 
   uint m_MeshSize;
-
 
 };
 

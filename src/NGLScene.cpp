@@ -15,6 +15,7 @@ NGLScene::NGLScene()
 
 NGLScene::~NGLScene()
 {
+  ObjectUpdater->deleteLater();
   std::cout<<"Shutting down NGL, removing VAO's and Shaders\n";
 }
 
@@ -49,7 +50,7 @@ void NGLScene::initializeGL()
   //Impact.loadMesh("models/Sphere.obj");
 
   cam.set(ngl::Vec3(0.0f, 5.0f, 15.0f),
-          ngl::Vec3(0.0f, 6.0f, 0.0f),
+          ngl::Vec3(0.0f, 4.0f, 0.0f),
           ngl::Vec3(0.0f, 1.0f, 0.0f));
 
   cam.setShape(45.0f, 720.0f/576.0f, 0.05f, 350.0f);
@@ -123,21 +124,13 @@ void NGLScene::initializeGL()
   shader->setShaderParam1i("tex",1);
   shader->setShaderParam1i("TBO",0);
 
-  thread->start();
-  thread->setUp();
-
-
-
-  // Create the projection matrix
-//  m_proj=ngl::perspective(90.0f,float(width()/height()),0.1,200);
-//  m_view=ngl::lookAt(cam.getEye().toVec3(), cam.getLook().toVec3(), ngl::Vec3(0.0f, 1.0f, 0.0f));
-
-  //m_Container.initBuffers();
-
-  //Input.move(ngl::Vec3(0.0f, -5.0f, 0.0f));
-
+  ObjectUpdater = new ObjectUpdateThread;
+  ObjectUpdater->start();
+  ObjectUpdater->setUp();
 
 }
+
+
 
 void NGLScene::loadToShader()
 {
@@ -260,9 +253,9 @@ void NGLScene::paintGL()
   glDrawArraysInstanced(GL_TRIANGLES, 0, Input.getContainer()->getMeshSize(), Input.getContainer()->getNumParticles());
   Input.getContainer()->getMesh()->unbindVAO();
 
-  setSingleTransform(thread->getImpactObject().getTransform(), thread->getImpactObject().getPosition(), ngl::Vec3(1.0f, 1.0f, 1.0f));
+  setSingleTransform(ObjectUpdater->getImpactObject().getTransform(), ObjectUpdater->getImpactObject().getPosition(), ngl::Vec3(1.0f, 1.0f, 1.0f));
 
-  thread->getImpactObject().getMesh()->bindVAO();
+  ObjectUpdater->getImpactObject().getMesh()->bindVAO();
   loadToShader();
 
   glActiveTexture(GL_TEXTURE0);
@@ -270,9 +263,9 @@ void NGLScene::paintGL()
   glActiveTexture(GL_TEXTURE1);
   glBindTexture(GL_TEXTURE_2D, m_textureID);
 
-  glDrawArrays(GL_TRIANGLES, 0, thread->getImpactObject().getMesh()->getMeshSize());
+  glDrawArrays(GL_TRIANGLES, 0, ObjectUpdater->getImpactObject().getMesh()->getMeshSize());
 
-  thread->getImpactObject().getMesh()->unbindVAO();
+  ObjectUpdater->getImpactObject().getMesh()->unbindVAO();
 
 
   update();
@@ -298,12 +291,20 @@ void NGLScene::keyPressEvent(QKeyEvent *_event)
   case Qt::Key_V :
       showInput = 1 - showInput;
   case Qt::Key_Space :
-//      Impact.loadMesh("models/Sphere.obj");
-      thread->getImpactObject().setPosition(cam.getEye().toVec3());
-      thread->getImpactObject().setDirection(cam.getLook().toVec3());
-      thread->getImpactObject().setVelocity(1.0f);
-      thread->getImpactObject().setMass(5.0f);
-      thread->getImpactObject().setRadius(3.0f);
+      {
+        // Wrap in braces to allow mutex locker usage
+        std::cout<<"starting\n";
+        QMutexLocker ml(ObjectUpdater->getMutex());
+        ObjectUpdater->setImpactObjectPosition(cam.getEye().toVec3());
+//        std::cout<<cam.getLook().toVec3().m_x<<" "<<cam.getLook().toVec3().m_y<<" "<<cam.getLook().toVec3().m_z<<"\n";
+        ObjectUpdater->setImpactObjectDirection(ngl::Vec3((cam.getLook() - cam.getEye()).toVec3()));
+        ObjectUpdater->setImpactObjectVelocity(0.1f);
+        ObjectUpdater->setImpactObjectMass(5.0f);
+        ObjectUpdater->setImpactObjectRadius(3.0f);
+        Collisions = new CollisionThread(Input, ObjectUpdater->getImpactObject());
+        Collisions->start();
+        std::cout<<"set thread variables\n";
+      }
 
   break;
   default : break;

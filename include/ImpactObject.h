@@ -15,13 +15,17 @@ public:
 //  void setPosition(ngl::Vec3 _pos);
   ngl::Vec3 getDirection() { return m_Direction; }
   void setDirection(ngl::Vec3 _dir);
+
   float getVelocity() { return m_Velocity; }
   void setVelocity(float _vel);
+
   float getMass() { return m_Mass; }
   void setMass(float _mass);
+
   float getRadius() {return m_Radius; }
   void setRadius(float _rad);
 //  std::shared_ptr<ngl::Obj> getMesh() { return m_Mesh; }
+
   void loadMesh(std::string _file);
 
   void update();

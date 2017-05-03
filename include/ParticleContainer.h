@@ -55,7 +55,7 @@ public:
 private:
 
   int maxParticles = 100000;
-
+    void foo();
 //  GLfloat* g_particle_position_size_data = new GLfloat[maxParticles * 4];
 
 //  GLubyte* g_particle_colour_data = new GLubyte[maxParticles * 4];

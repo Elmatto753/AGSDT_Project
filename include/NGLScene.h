@@ -6,12 +6,13 @@
 #include <ngl/Light.h>
 #include <ngl/ShaderLib.h>
 #include <ngl/Camera.h>
+
+#include <QOpenGLWindow>
 #include "Model.h"
 #include "ParticleContainer.h"
 #include "ImpactObject.h"
-
-#include <QOpenGLWindow>
-#include <Thread.h>
+#include "ObjectUpdateThread.h"
+#include "CollisionThread.h"
 #include "WindowParams.h"
 //----------------------------------------------------------------------------------------------------------------------
 /// @file NGLScene.h
@@ -124,7 +125,9 @@ private:
 
     //ImpactObject Impact;
 
-    Thread *thread = new Thread;
+    ObjectUpdateThread *ObjectUpdater;
+
+    CollisionThread *Collisions;
 
 
 
