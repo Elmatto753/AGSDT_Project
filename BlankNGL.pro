@@ -101,6 +101,7 @@ OTHER_FILES+= README.md \
               $$PWD/models/Bomberman.obj \
               $$PWD/models/Bomberman_fixed.obj \
               $$PWD/models/Sphere.obj \
+              $$PWD/models/Particle.obj \
               $$PWD/shaders/VertShader.glsl \
               $$PWD/shaders/FragShader.glsl \
               $$PWD/models/Firefox_wallpaper.png \

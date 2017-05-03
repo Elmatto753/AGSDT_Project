@@ -89,6 +89,9 @@ void NGLScene::initializeGL()
 
   glGenBuffers(1, &tbo);
 
+  setMultipleTransforms(ngl::Vec3(0.0f, 0.0f, 0.0f), ngl::Vec3(1.0f, 1.0f, 1.0f));
+
+
   //setAllTransforms(Input.getContainer()->getBaseParticle()->m_Position, ngl::Vec3(1.0f, 1.0f, 1.0f));
 
 //  for(auto &t : transforms)
@@ -166,7 +169,7 @@ void NGLScene::setMultipleTransforms(ngl::Vec3 _pos, ngl::Vec3 _scale)
 
   glBindBuffer(GL_TEXTURE_BUFFER, tbo);
   glBufferData(GL_TEXTURE_BUFFER, transforms.size() * sizeof(ngl::Mat4), &transforms[0].m_00, GL_STATIC_DRAW);
-  glGenTextures(1, &m_tboID);
+  //glGenTextures(1, &m_tboID);
   glActiveTexture( GL_TEXTURE0 );
   glBindTexture(GL_TEXTURE_BUFFER, m_tboID);
 
@@ -184,7 +187,7 @@ void NGLScene::setSingleTransform(ngl::Mat4 _transform, ngl::Vec3 _pos, ngl::Vec
   _transform=scale*pos;
   glBindBuffer(GL_TEXTURE_BUFFER, tbo);
   glBufferData(GL_TEXTURE_BUFFER, sizeof(ngl::Mat4), &_transform.m_00, GL_STATIC_DRAW);
-  glGenTextures(1, &m_tboID);
+  //glGenTextures(1, &m_tboID);
   glActiveTexture( GL_TEXTURE0 );
   glBindTexture(GL_TEXTURE_BUFFER, m_tboID);
 
@@ -214,7 +217,7 @@ void NGLScene::paintGL()
   rotX.rotateX(m_win.spinXFace);
   rotY.rotateY(m_win.spinYFace);
 
-  setSingleTransform(Input.getTransform() , ngl::Vec3(0.0f, 0.0f, 0.0f), ngl::Vec3(1.0f, 1.0f, 1.0f));
+  //setSingleTransform(Input.getTransform() , ngl::Vec3(0.0f, 0.0f, 0.0f), ngl::Vec3(1.0f, 1.0f, 1.0f));
 
   m_mouseGlobalTX=rotY*rotX;
 

@@ -33,13 +33,13 @@ public:
 
   int getNumParticles() { return particleList.size(); }
 
-  Particle* getBaseParticle() { return baseParticle; }
+//  Particle* getBaseParticle() { return baseParticle; }
 
   std::vector<Particle*> getParticleList() { return particleList; }
 
   void setParticlePosition(uint _at, ngl::Vec3 _position);
 
-  void makeParticleAt(ngl::Vec3 _pos, std::shared_ptr<ngl::Obj> _mesh);
+  void makeParticleAt(ngl::Vec3 _Pos, std::shared_ptr<ngl::Obj> _Mesh);
 
   void setParticleNeighbours(float _Xtest, float _Ytest, float _Ztest);
 
@@ -50,7 +50,7 @@ public:
   /// @param[in] _mesh mesh to test against
   ///@returns true if particle is inside the mesh
   //-----------------------------------------------------------------------------------
-  bool testParticleInMesh(Particle *p, std::shared_ptr<ngl::Obj> _mesh);
+  bool testParticleInMesh(ngl::Vec3 _Pos, std::shared_ptr<ngl::Obj> _Mesh);
 
 private:
 
@@ -62,7 +62,7 @@ private:
 
   int m_numParticles;
 
-  Particle *baseParticle;
+//  Particle *baseParticle;
 
   std::vector<Particle*> particleList;
 
