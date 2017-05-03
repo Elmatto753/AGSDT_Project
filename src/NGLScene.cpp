@@ -44,9 +44,11 @@ void NGLScene::initializeGL()
   //Input.makeParticles();
   Input.getContainer()->loadParticleModel();
   std::cout<<"Filling mesh with particles...\n";
-  Input.makeParticles(20, 40, 20);
+  Input.makeParticles(10, 10, 10);
 
-  cam.set(ngl::Vec3(3.0f, 5.0f, 20.0f),
+  //Impact.loadMesh("models/Sphere.obj");
+
+  cam.set(ngl::Vec3(0.0f, 5.0f, 15.0f),
           ngl::Vec3(0.0f, 6.0f, 0.0f),
           ngl::Vec3(0.0f, 1.0f, 0.0f));
 
@@ -120,6 +122,10 @@ void NGLScene::initializeGL()
   m_textureID=t.setTextureGL();
   shader->setShaderParam1i("tex",1);
   shader->setShaderParam1i("TBO",0);
+
+  thread->start();
+  thread->setUp();
+
 
 
   // Create the projection matrix
@@ -217,25 +223,27 @@ void NGLScene::paintGL()
   rotX.rotateX(m_win.spinXFace);
   rotY.rotateY(m_win.spinYFace);
 
-  //setSingleTransform(Input.getTransform() , ngl::Vec3(0.0f, 0.0f, 0.0f), ngl::Vec3(1.0f, 1.0f, 1.0f));
+  Input.setPosition(ngl::Vec3(0.0f, 0.0f, 0.0f));
+  setSingleTransform(Input.getTransform() , Input.getPosition(), ngl::Vec3(1.0f, 1.0f, 1.0f));
 
   m_mouseGlobalTX=rotY*rotX;
 
-  Input.setPosition(ngl::Vec3(0.0f, 0.0f, 0.0f));
   Input.getMesh()->drawBBox();
   setMouseGlobal(Input.getPosition());
 
+  if(showInput == 1)
+  {
+    Input.getMesh()->bindVAO();
+    loadToShader();
 
-//  Input.getMesh()->bindVAO();
-//  loadToShader();
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_BUFFER, m_tboID);
+    glActiveTexture(GL_TEXTURE1);
+    glBindTexture(GL_TEXTURE_2D, m_textureID);
 
-//  glActiveTexture(GL_TEXTURE0);
-//  glBindTexture(GL_TEXTURE_BUFFER, m_tboID);
-//  glActiveTexture(GL_TEXTURE1);
-//  glBindTexture(GL_TEXTURE_2D, m_textureID);
-
-//  glDrawArrays(GL_TRIANGLES, 0, Input.getMesh()->getMeshSize());
-//  Input.getMesh()->unbindVAO();
+    glDrawArrays(GL_TRIANGLES, 0, Input.getMesh()->getMeshSize());
+    Input.getMesh()->unbindVAO();
+  }
 
   setMultipleTransforms(ngl::Vec3(0.0f, 0.0f, 0.0f), ngl::Vec3(1.0f, 1.0f, 1.0f));
 
@@ -251,6 +259,20 @@ void NGLScene::paintGL()
 
   glDrawArraysInstanced(GL_TRIANGLES, 0, Input.getContainer()->getMeshSize(), Input.getContainer()->getNumParticles());
   Input.getContainer()->getMesh()->unbindVAO();
+
+  setSingleTransform(thread->getImpactObject().getTransform(), thread->getImpactObject().getPosition(), ngl::Vec3(1.0f, 1.0f, 1.0f));
+
+  thread->getImpactObject().getMesh()->bindVAO();
+  loadToShader();
+
+  glActiveTexture(GL_TEXTURE0);
+  glBindTexture(GL_TEXTURE_BUFFER, m_tboID);
+  glActiveTexture(GL_TEXTURE1);
+  glBindTexture(GL_TEXTURE_2D, m_textureID);
+
+  glDrawArrays(GL_TRIANGLES, 0, thread->getImpactObject().getMesh()->getMeshSize());
+
+  thread->getImpactObject().getMesh()->unbindVAO();
 
 
   update();
@@ -269,10 +291,19 @@ void NGLScene::keyPressEvent(QKeyEvent *_event)
   {
   // escape key to quit
   case Qt::Key_Escape : QGuiApplication::exit(EXIT_SUCCESS); break;
-  case Qt::Key_Space :
+  case Qt::Key_R :
       m_win.spinXFace=0;
       m_win.spinYFace=0;
       m_modelPos.set(ngl::Vec3::zero());
+  case Qt::Key_V :
+      showInput = 1 - showInput;
+  case Qt::Key_Space :
+//      Impact.loadMesh("models/Sphere.obj");
+      thread->getImpactObject().setPosition(cam.getEye().toVec3());
+      thread->getImpactObject().setDirection(cam.getLook().toVec3());
+      thread->getImpactObject().setVelocity(1.0f);
+      thread->getImpactObject().setMass(5.0f);
+      thread->getImpactObject().setRadius(3.0f);
 
   break;
   default : break;

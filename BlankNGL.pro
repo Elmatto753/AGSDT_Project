@@ -23,16 +23,18 @@ SOURCES+= $$PWD/src/BaseObject.cpp \
           $$PWD/src/NGLScene.cpp \
           $$PWD/src/NGLSceneMouseControls.cpp \
           $$PWD/src/Particle.cpp \
-          $$PWD/src/ParticleContainer.cpp
+          $$PWD/src/ParticleContainer.cpp \
+          $$PWD/src/Thread.cpp
 # same for the .h files
 HEADERS+= $$PWD/include/BaseObject.h \
           $$PWD/include/ImpactObject.h \
-          $$PWD/include/NGLScene.h \
-          $$PWD/include/WindowParams.h \
           $$PWD/include/Model.h \
+          $$PWD/include/NGLScene.h \
           $$PWD/include/Particle.h \
+          $$PWD/include/ParticleContainer.h \
           $$PWD/include/Ray.h \
-          $$PWD/include/ParticleContainer.h
+          $$PWD/include/Thread.h \
+          $$PWD/include/WindowParams.h
 # Cuda sources
 CUDA_SOURCES += $$PWD/cuda/src/ParticleContainer.cu
 

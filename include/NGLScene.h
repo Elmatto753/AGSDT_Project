@@ -11,6 +11,7 @@
 #include "ImpactObject.h"
 
 #include <QOpenGLWindow>
+#include <Thread.h>
 #include "WindowParams.h"
 //----------------------------------------------------------------------------------------------------------------------
 /// @file NGLScene.h
@@ -113,13 +114,19 @@ private:
     GLuint m_textureID;
     GLuint m_tboID;
 
+    char showInput = 0;
+
     ngl::Camera cam;
 
     ngl::Transformation m_transform;
 
     Model Input;
 
-    ImpactObject Impact;
+    //ImpactObject Impact;
+
+    Thread *thread = new Thread;
+
+
 
     //ParticleContainer m_Container;
 

@@ -24,6 +24,8 @@ public:
 //  std::shared_ptr<ngl::Obj> getMesh() { return m_Mesh; }
   void loadMesh(std::string _file);
 
+  void update();
+
 private:
 
 //  ngl::Vec3 m_Position;

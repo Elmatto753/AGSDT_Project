@@ -12,6 +12,7 @@ ImpactObject::~ImpactObject()
 
 void ImpactObject::setDirection(ngl::Vec3 _dir)
 {
+  _dir.normalize();
   m_Direction = _dir;
 }
 
@@ -33,10 +34,15 @@ void ImpactObject::setRadius(float _rad)
 void ImpactObject::loadMesh(std::string _file)
 {
   m_Mesh.reset(new ngl::Obj(_file));
+  m_Mesh->scale(1.0f, 1.0f, 1.0f);
   m_Mesh->createVAO();
+  m_MeshSize = m_Mesh->getMeshSize();
 }
 
-
+void ImpactObject::update()
+{
+  m_Position += m_Direction * m_Velocity;
+}
 
 
 

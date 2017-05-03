@@ -55,7 +55,8 @@ SOURCES       = src/BaseObject.cpp \
 		src/NGLScene.cpp \
 		src/NGLSceneMouseControls.cpp \
 		src/Particle.cpp \
-		src/ParticleContainer.cpp 
+		src/ParticleContainer.cpp \
+		src/Thread.cpp 
 OBJECTS       = cuda/obj/ParticleContainer_cuda.o \
 		obj/BaseObject.o \
 		obj/ImpactObject.o \
@@ -64,23 +65,26 @@ OBJECTS       = cuda/obj/ParticleContainer_cuda.o \
 		obj/NGLScene.o \
 		obj/NGLSceneMouseControls.o \
 		obj/Particle.o \
-		obj/ParticleContainer.o
+		obj/ParticleContainer.o \
+		obj/Thread.o
 DIST          = .qmake.stash \
 		BlankNGL.pro include/BaseObject.h \
 		include/ImpactObject.h \
-		include/NGLScene.h \
-		include/WindowParams.h \
 		include/Model.h \
+		include/NGLScene.h \
 		include/Particle.h \
+		include/ParticleContainer.h \
 		include/Ray.h \
-		include/ParticleContainer.h src/BaseObject.cpp \
+		include/Thread.h \
+		include/WindowParams.h src/BaseObject.cpp \
 		src/ImpactObject.cpp \
 		src/main.cpp \
 		src/Model.cpp \
 		src/NGLScene.cpp \
 		src/NGLSceneMouseControls.cpp \
 		src/Particle.cpp \
-		src/ParticleContainer.cpp
+		src/ParticleContainer.cpp \
+		src/Thread.cpp
 QMAKE_TARGET  = BlankNGL
 DESTDIR       = 
 TARGET        = BlankNGL
@@ -428,8 +432,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents cuda/src/ParticleContainer.cu $(DISTDIR)/
-	$(COPY_FILE) --parents include/BaseObject.h include/ImpactObject.h include/NGLScene.h include/WindowParams.h include/Model.h include/Particle.h include/Ray.h include/ParticleContainer.h $(DISTDIR)/
-	$(COPY_FILE) --parents src/BaseObject.cpp src/ImpactObject.cpp src/main.cpp src/Model.cpp src/NGLScene.cpp src/NGLSceneMouseControls.cpp src/Particle.cpp src/ParticleContainer.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents include/BaseObject.h include/ImpactObject.h include/Model.h include/NGLScene.h include/Particle.h include/ParticleContainer.h include/Ray.h include/Thread.h include/WindowParams.h $(DISTDIR)/
+	$(COPY_FILE) --parents src/BaseObject.cpp src/ImpactObject.cpp src/main.cpp src/Model.cpp src/NGLScene.cpp src/NGLSceneMouseControls.cpp src/Particle.cpp src/ParticleContainer.cpp src/Thread.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -602,7 +606,8 @@ obj/BaseObject.o: src/BaseObject.cpp include/BaseObject.h \
 		/home/i7677716/NGL/include/ngl/BBox.h \
 		/home/i7677716/NGL/include/ngl/AbstractVAO.h \
 		/home/i7677716/NGL/include/ngl/RibExport.h \
-		/home/i7677716/NGL/include/ngl/NGLassert.h
+		/home/i7677716/NGL/include/ngl/NGLassert.h \
+		/home/i7677716/NGL/include/ngl/Mat4.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o obj/BaseObject.o src/BaseObject.cpp
 
 obj/ImpactObject.o: src/ImpactObject.cpp include/ImpactObject.h \
@@ -730,7 +735,8 @@ obj/ImpactObject.o: src/ImpactObject.cpp include/ImpactObject.h \
 		/home/i7677716/NGL/include/ngl/BBox.h \
 		/home/i7677716/NGL/include/ngl/AbstractVAO.h \
 		/home/i7677716/NGL/include/ngl/RibExport.h \
-		/home/i7677716/NGL/include/ngl/NGLassert.h
+		/home/i7677716/NGL/include/ngl/NGLassert.h \
+		/home/i7677716/NGL/include/ngl/Mat4.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o obj/ImpactObject.o src/ImpactObject.cpp
 
 obj/main.o: src/main.cpp /opt/Qt5.7.0/5.7/gcc_64/include/QtGui/QGuiApplication \
@@ -899,6 +905,12 @@ obj/main.o: src/main.cpp /opt/Qt5.7.0/5.7/gcc_64/include/QtGui/QGuiApplication \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/QScopedPointer \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qopenglversionfunctions.h \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/QImage \
+		include/Thread.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/QThread \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qthread.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/QThreadPool \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qthreadpool.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qrunnable.h \
 		include/WindowParams.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o obj/main.o src/main.cpp
 
@@ -1028,8 +1040,8 @@ obj/Model.o: src/Model.cpp include/Model.h \
 		/home/i7677716/NGL/include/ngl/AbstractVAO.h \
 		/home/i7677716/NGL/include/ngl/RibExport.h \
 		/home/i7677716/NGL/include/ngl/NGLassert.h \
-		include/ParticleContainer.h \
 		/home/i7677716/NGL/include/ngl/Mat4.h \
+		include/ParticleContainer.h \
 		include/Particle.h \
 		include/Ray.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o obj/Model.o src/Model.cpp
@@ -1201,6 +1213,12 @@ obj/NGLScene.o: src/NGLScene.cpp /opt/Qt5.7.0/5.7/gcc_64/include/QtGui/QMouseEve
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/QScopedPointer \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qopenglversionfunctions.h \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/QImage \
+		include/Thread.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/QThread \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qthread.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/QThreadPool \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qthreadpool.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qrunnable.h \
 		include/WindowParams.h \
 		/home/i7677716/NGL/include/ngl/NGLInit.h \
 		/home/i7677716/NGL/include/ngl/VAOPrimitives.h \
@@ -1368,6 +1386,12 @@ obj/NGLSceneMouseControls.o: src/NGLSceneMouseControls.cpp include/NGLScene.h \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/QScopedPointer \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qopenglversionfunctions.h \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/QImage \
+		include/Thread.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/QThread \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qthread.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/QThreadPool \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qthreadpool.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qrunnable.h \
 		include/WindowParams.h \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/QMouseEvent
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o obj/NGLSceneMouseControls.o src/NGLSceneMouseControls.cpp
@@ -1628,6 +1652,61 @@ obj/ParticleContainer.o: src/ParticleContainer.cpp include/ParticleContainer.h \
 		include/Particle.h \
 		include/Ray.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o obj/ParticleContainer.o src/ParticleContainer.cpp
+
+obj/Thread.o: src/Thread.cpp include/Thread.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/QThread \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qthread.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qobject.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qobjectdefs.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qnamespace.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qglobal.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qconfig.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qfeatures.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qsystemdetection.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qprocessordetection.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qcompilerdetection.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qtypeinfo.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qtypetraits.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qisenum.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qsysinfo.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qlogging.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qflags.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qatomic.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qbasicatomic.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qgenericatomic.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qatomic_cxx11.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qatomic_msvc.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qglobalstatic.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qmutex.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qnumeric.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qversiontagging.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qstring.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qchar.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qbytearray.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qrefcount.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qarraydata.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qstringbuilder.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qlist.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qalgorithms.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qiterator.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qhashfunctions.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qpair.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qbytearraylist.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qstringlist.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qregexp.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qstringmatcher.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qcoreevent.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qscopedpointer.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qmetatype.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qvarlengtharray.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qcontainerfwd.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qobject_impl.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/QThreadPool \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qthreadpool.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qrunnable.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o obj/Thread.o src/Thread.cpp
 
 ####### Install
 

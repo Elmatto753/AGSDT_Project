@@ -16,8 +16,6 @@ private:
   };
 //  std::shared_ptr<ngl::Obj> m_Mesh;
 
-  ngl::Mat4 m_Transform;
-
   std::vector<cell> CellList;
 
   ParticleContainer m_Container;
@@ -30,7 +28,7 @@ public:
   void draw();
   void loadMesh(std::string _file);
   ParticleContainer* getContainer() { return &m_Container; }
-  ngl::Mat4 getTransform() { return m_Transform; }
+
   void move(ngl::Vec3 _delta);
 
   // Divides the mesh's BBox in the specified number of cells in each direction

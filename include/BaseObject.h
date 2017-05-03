@@ -5,6 +5,7 @@
 #include <cstdlib>
 #include <iostream>
 #include <ngl/Obj.h>
+#include <ngl/Mat4.h>
 
 class BaseObject
 {
@@ -14,10 +15,15 @@ public:
   ~BaseObject();
 
   ngl::Vec3 getPosition() { return m_Position; }
-  void setPosition(ngl::Vec3 _pos);
+  virtual void setPosition(ngl::Vec3 _pos);
 
   std::shared_ptr<ngl::Obj> getMesh() { return m_Mesh; }
   virtual void loadMesh() {}
+
+  ngl::Mat4 getTransform() { return m_Transform; }
+
+  uint getMeshSize() { return m_MeshSize; }
+
 
 protected:
 
@@ -25,10 +31,12 @@ protected:
 
   std::shared_ptr<ngl::Obj> m_Mesh;
 
+  ngl::Mat4 m_Transform;
+
+  uint m_MeshSize;
+
 
 };
-
-
 
 
 
