@@ -105,9 +105,7 @@ void NGLScene::initializeGL()
 
   glGenBuffers(1, &tbo);
 
-  glGenBuffers(1, &m_colour);
-
-  setMultipleTransforms(ngl::Vec3(0.0f, 0.0f, 0.0f), ngl::Vec3(1.0f, 1.0f, 1.0f));
+  setMultipleTransforms(ngl::Vec3(1.0f, 1.0f, 1.0f));
 
 
   //setAllTransforms(Input.getContainer()->getBaseParticle()->m_Position, ngl::Vec3(1.0f, 1.0f, 1.0f));
@@ -147,7 +145,7 @@ void NGLScene::initializeGL()
 
 
 
-void NGLScene::loadToShader(ngl::Vec4 _colour)
+void NGLScene::loadToShader()
 {
   ngl::ShaderLib *shader=ngl::ShaderLib::instance();
 
@@ -170,18 +168,9 @@ void NGLScene::loadToShader(ngl::Vec4 _colour)
   m_light->loadToShader("light");
   shader->setUniform("mouseTX", m_mouseGlobalTX);
   shader->setUniform("VP", m_cam.getVPMatrix());
-  shader->setRegisteredUniform("Colour", _colour);
 }
 
-void NGLScene::rotateCamAboutLook(float _x, float _y)
-{
-  //float radius = ngl::Vec3(cam.getLook().toVec3() - cam.getEye().toVec3()).length();
-  //m_transform.addRotation(_x, _y, 0.0f);
-  //m_cam.moveEye(m_transform.getRotation().m_x, m_transform.getRotation().m_y, m_transform.getRotation().m_z);
-  //m_cam.setEye(m_cam.getEye() + ngl::Vec4(m_transform.getRotation().m_x, m_transform.getRotation().m_y, m_transform.getRotation().m_z, 0.0f));
-}
-
-void NGLScene::setMultipleTransforms(ngl::Vec3 _pos, ngl::Vec3 _scale)
+void NGLScene::setMultipleTransforms(ngl::Vec3 _scale)
 {
   Input.getContainer()->getParticleList().shrink_to_fit();
   transforms.clear();
@@ -253,7 +242,7 @@ void NGLScene::paintGL()
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   glViewport(0,0,m_win.width,m_win.height);
 
-  loadToShader(ngl::Vec4(1.0f, 1.0f, 1.0f, 0.0f));
+  loadToShader();
 
   //Input.getContainer()->getBaseParticle()->m_Position.m_y += 0.1;
 
@@ -273,7 +262,7 @@ void NGLScene::paintGL()
   if(showInput == 1)
   {
     Input.getMesh()->bindVAO();
-    loadToShader(ngl::Vec4(1.0f, 1.0f, 1.0f, 0.0f));
+    loadToShader();
 
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_BUFFER, m_tboID);
@@ -284,7 +273,7 @@ void NGLScene::paintGL()
     Input.getMesh()->unbindVAO();
   }
 
-  setMultipleTransforms(ngl::Vec3(0.0f, 0.0f, 0.0f), ngl::Vec3(1.0f, 1.0f, 1.0f));
+  setMultipleTransforms(ngl::Vec3(1.0f, 1.0f, 1.0f));
 
   //setMouseGlobal(Input.getContainer()->getBaseParticle()->m_Position);
 
@@ -304,7 +293,7 @@ void NGLScene::paintGL()
                      2 * ngl::Vec3(ObjectUpdater->getImpactObject().getRadius(), ObjectUpdater->getImpactObject().getRadius(), ObjectUpdater->getImpactObject().getRadius()));
 
   ObjectUpdater->getImpactObject().getMesh()->bindVAO();
-  loadToShader(ngl::Vec4(1.0f, 1.0f, 1.0f, 0.0f));
+  loadToShader();
 
   glActiveTexture(GL_TEXTURE0);
   glBindTexture(GL_TEXTURE_BUFFER, m_tboID);

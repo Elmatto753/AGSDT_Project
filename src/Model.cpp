@@ -13,11 +13,6 @@ Model::~Model()
 
 }
 
-void Model::draw()
-{
-  m_Mesh->draw();
-}
-
 void Model::loadMesh(std::string _file)
 {
   m_Mesh.reset(new ngl::Obj(_file));
@@ -33,23 +28,23 @@ void Model::move(ngl::Vec3 _delta)
 //  }
 }
 
-void Model::makeParticles(uint numCellsX, uint numCellsY, uint numCellsZ)
+void Model::makeParticles(uint numDivsX, uint numDivsY, uint numDivsZ)
 {
 
   float XDepth = m_Mesh->getBBox().maxX() - m_Mesh->getBBox().minX();
   float YDepth = m_Mesh->getBBox().maxY() - m_Mesh->getBBox().minY();
   float ZDepth = m_Mesh->getBBox().maxZ() - m_Mesh->getBBox().minZ();
 
-  float XIncrement = XDepth / numCellsX;
-  float YIncrement = YDepth / numCellsY;
-  float ZIncrement = ZDepth / numCellsZ;
+  float XIncrement = XDepth / numDivsX;
+  float YIncrement = YDepth / numDivsY;
+  float ZIncrement = ZDepth / numDivsZ;
 
-  for(uint i = 0; i < numCellsX; i++)
+  for(uint i = 0; i < numDivsX; i++)
   {
-    std::cout<<i * (100 / numCellsX)<<"%\n";
-    for(uint j = 0; j < numCellsY; j++)
+    std::cout<<i * (100 / numDivsX)<<"%\n";
+    for(uint j = 0; j < numDivsY; j++)
     {
-      for(uint k = 0; k < numCellsZ; k++)
+      for(uint k = 0; k < numDivsZ; k++)
       {
 //        cell c;
 //        c.min = ngl::Vec3(mesh->getBBox().minX() + (i * XIncrement),
@@ -62,9 +57,9 @@ void Model::makeParticles(uint numCellsX, uint numCellsY, uint numCellsZ)
 //        m_Container.makeParticleAt(c.centre);
 //        CellList.push_back(c);
 
-        m_Container.makeParticleAt(ngl::Vec3(m_Mesh->getBBox().maxX() - (((numCellsX - 1) - i) * XIncrement),
-                                             m_Mesh->getBBox().maxY() - (((numCellsY - 1) - j) * YIncrement),
-                                             m_Mesh->getBBox().maxZ() - (((numCellsZ - 1) - k) * ZIncrement)),
+        m_Container.makeParticleAt(ngl::Vec3(m_Mesh->getBBox().maxX() - (((numDivsX - 1) - i) * XIncrement),
+                                             m_Mesh->getBBox().maxY() - (((numDivsY - 1) - j) * YIncrement),
+                                             m_Mesh->getBBox().maxZ() - (((numDivsZ - 1) - k) * ZIncrement)),
                                    m_Mesh);
 //        m_Container.makeParticleAt(ngl::Vec3(mesh->getBBox().minX() + (i * XIncrement),
 //                                             mesh->getBBox().minY() + (j * YIncrement),

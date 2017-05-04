@@ -33,7 +33,6 @@ in vec3 halfVector;
 in vec3 eyeDirection;
 
 in vec2 vertUV;
-uniform vec4 Colour;
 uniform sampler2D tex;
 
 void pointLight(
@@ -65,6 +64,5 @@ void main()
   vec4 diffuse = vec4(0.0);
   vec4 specular = vec4(0.0);
   pointLight(fragmentNormal, ambient, diffuse, specular);
-//  fragColour=texture(tex, vertUV.st) * Colour;
-  fragColour = /*texture(tex, vertUV.st)*/ Colour * ambient+diffuse+specular;
+  fragColour = texture(tex, vertUV.st) * ambient+diffuse+specular;
 }

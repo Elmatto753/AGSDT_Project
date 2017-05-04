@@ -8,16 +8,9 @@ class Model : public BaseObject
 {
 private:
 
-  struct cell
-  {
-    ngl::Vec3 min;
-    ngl::Vec3 max;
-    ngl::Vec3 centre;
-  };
-//  std::shared_ptr<ngl::Obj> m_Mesh;
-
-  std::vector<cell> CellList;
-
+  //----------------------------------------------------------------------------------------------------------------------
+    /// @brief Object to hold and manipulate the particles in this mesh
+  //----------------------------------------------------------------------------------------------------------------------
   ParticleContainer m_Container;
 
 public:
@@ -25,31 +18,29 @@ public:
   Model();
   ~Model();
 
-  void draw();
+  //----------------------------------------------------------------------------------------------------------------------
+    /// @brief Loads in a mesh. Overrides virtual function in BaseObject.h
+    /// @param [in] _file The file to load the mesh from
+  //----------------------------------------------------------------------------------------------------------------------
   void loadMesh(std::string _file);
+  //----------------------------------------------------------------------------------------------------------------------
+    /// @brief Getter for the particle container
+  //----------------------------------------------------------------------------------------------------------------------
   ParticleContainer* getContainer() { return &m_Container; }
-
+  //----------------------------------------------------------------------------------------------------------------------
+    /// @brief Moves this object
+    /// @param [in] _delta The amount to move the object by
+  //----------------------------------------------------------------------------------------------------------------------
   void move(ngl::Vec3 _delta);
 
-  // Divides the mesh's BBox in the specified number of cells in each direction
-  // numCells * numCells * numCells
-  void makeParticles(uint numCellsX, uint numCellsY, uint numCellsZ);
-  cell getCell(uint _cellIndex) { if(_cellIndex < CellList.size())
-                                        return CellList.at(_cellIndex); }
-  int getNumCells() { return CellList.size(); }
-
-//  std::shared_ptr<ngl::Obj> getMesh() { return m_Mesh; }
-
-
-
-  // To stick with C++11, implement C++14 function make_unique
-//  template<typename T, typename ...Args>
-//  std::unique_ptr<T> make_unique(Args&& ...args) const
-//  {
-//    return std::unique_ptr<T>( new T(std::forward<Args>(args)... ) );
-//  }
-
-  //std::vector<std::unique_ptr<Particle>> ParticleList;
+  //----------------------------------------------------------------------------------------------------------------------
+    /// @brief Fills this object's mesh with particles by dividing the bounding box
+    /// and testing if points are inside the mesh
+    /// @param [in] _divX Number of divisions in the X-direction
+    /// @param [in] _divY Number of divisions in the Y-direction
+    /// @param [in] _divZ Number of divisions in the Z-direction
+  //----------------------------------------------------------------------------------------------------------------------
+  void makeParticles(uint numDivsX, uint numDivsY, uint numDivsZ);
 
 };
 
