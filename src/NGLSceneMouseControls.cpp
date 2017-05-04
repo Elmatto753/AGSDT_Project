@@ -16,8 +16,7 @@ void NGLScene::mouseMoveEvent( QMouseEvent* _event )
     m_win.spinYFace += static_cast<int>( 0.5f * diffx );
     m_win.origX = _event->x();
     m_win.origY = _event->y();
-    //m_cam.move(static_cast<int>( 0.5f * diffx ),static_cast<int>( 0.5f * diffy ), 0.0f);
-    //rotateCamAboutLook(diffx/100, diffy/100);
+
     update();
   }
   // right mouse translate code

@@ -35,7 +35,7 @@ typedef struct Particle
   //------------------------------------------------------------------------
   /// @brief strength of connection to other particles (the more particles connected, the stronger the particle
   //------------------------------------------------------------------------
-  float m_bondStrength = 5.0f;
+  float m_bondStrength = 3.0f;
   //------------------------------------------------------------------------
   /// @brief Force being exerted on this particle (if this exceeds bond strength, the particle will break)
   //------------------------------------------------------------------------

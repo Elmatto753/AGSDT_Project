@@ -7,8 +7,8 @@
 #include <ngl/ShaderLib.h>
 #include <ngl/Transformation.h>
 #include <ngl/Vec3.h>
-
 #include <QOpenGLWindow>
+
 #include "Model.h"
 #include "ParticleContainer.h"
 #include "ImpactObject.h"

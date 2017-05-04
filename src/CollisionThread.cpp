@@ -11,7 +11,6 @@ CollisionThread::CollisionThread(Model mesh, ImpactObject object, ObjectUpdateTh
   m_mesh = mesh;
   m_object = object;
   m_OUthread = thread;
-
 }
 
 CollisionThread::~CollisionThread()
@@ -71,11 +70,9 @@ bool CollisionThread::initialTest(Model _mesh, ImpactObject _object)
     }
 
     return true;
-
   }
 
   return false;
-
 }
 
 // Returns a std::vector of all particles the object is currently colliding with

@@ -1,10 +1,10 @@
+#include <iostream>
+#include "NGLScene.h"
 #include <QMouseEvent>
 #include <QGuiApplication>
-
-#include "NGLScene.h"
 #include <ngl/NGLInit.h>
 #include <ngl/Random.h>
-#include <iostream>
+
 
 //----------------------------------------------------------------------------------------------------------------------
 /// @file NGLScene.cpp
@@ -37,7 +37,7 @@ void NGLScene::initializeGL()
   // be done once we have a valid GL context but before we call any GL commands. If we dont do
   // this everything will crash
   ngl::NGLInit::instance();
-  glClearColor(0.5f, 0.6f, 0.5f, 1.0f);			   // Grey Background
+  glClearColor(0.5f, 0.6f, 0.5f, 1.0f);			   // Grey-green Background
   // enable depth testing for drawing
   glEnable(GL_DEPTH_TEST);
   // enable multisampling for smoother drawing
@@ -48,7 +48,7 @@ void NGLScene::initializeGL()
   Input.getContainer()->loadParticleModel();
   std::cout<<"Filling mesh with particles...\n";
   // Turns the mesh into particles
-  Input.makeParticles(10, 10, 10);
+  Input.makeParticles(15, 30, 15);
 
   // Set up the camera
   m_cam.set(ngl::Vec3(0.0f, 5.0f, 15.0f),
@@ -104,7 +104,7 @@ void NGLScene::initializeGL()
 
   glTexBuffer(GL_TEXTURE_BUFFER, GL_RGBA32F, tbo);
 
-  ngl::Texture t("models/ParticleTexture.png");
+  ngl::Texture t("textures/ParticleTexture.png");
   t.setMultiTexture(1);
   m_textureID=t.setTextureGL();
   shader->setShaderParam1i("tex",1);
@@ -149,7 +149,6 @@ void NGLScene::setMultipleTransforms(ngl::Vec3 _scale)
   Input.getContainer()->getParticleList().shrink_to_fit();
   transforms.clear();
   transforms.resize(Input.getContainer()->getNumParticles());
-  //std::cout<<"numParticles: "<<Input.getContainer()->getNumParticles()<<"\n";
   ngl::Mat4 pos;
   ngl::Mat4 scale;
 
@@ -159,7 +158,6 @@ void NGLScene::setMultipleTransforms(ngl::Vec3 _scale)
   {
     transforms.resize(Input.getContainer()->getNumParticles());
     position = Input.getContainer()->getParticleList().at(i)->m_position;
-//    auto yScale=_scale;
     pos.translate(position.m_x, position.m_y, position.m_z);
     if(Input.getContainer()->getParticleList().at(i)->m_isBroken == false)
     {
@@ -168,14 +166,12 @@ void NGLScene::setMultipleTransforms(ngl::Vec3 _scale)
     else
     {
       Input.getContainer()->removeParticle(Input.getContainer()->getParticleList().at(i));
-      //scale.scale(0.0f, 0.0f, 0.0f);
     }
     transforms.at(i)=scale*pos;
   }
 
   glBindBuffer(GL_TEXTURE_BUFFER, tbo);
   glBufferData(GL_TEXTURE_BUFFER, transforms.size() * sizeof(ngl::Mat4), &transforms[0].m_00, GL_STATIC_DRAW);
-  //glGenTextures(1, &m_tboID);
   glActiveTexture( GL_TEXTURE0 );
   glBindTexture(GL_TEXTURE_BUFFER, m_tboID);
 
@@ -188,13 +184,11 @@ void NGLScene::setSingleTransform(ngl::Mat4 _transform, ngl::Vec3 _pos, ngl::Vec
 {
   ngl::Mat4 pos;
   ngl::Mat4 scale;
-//  auto t = transforms.at(_at);
   pos.translate(_pos.m_x, _pos.m_y, _pos.m_z);
   scale.scale(_scale.m_x, _scale.m_y, _scale.m_z);
   _transform=scale*pos;
   glBindBuffer(GL_TEXTURE_BUFFER, tbo);
   glBufferData(GL_TEXTURE_BUFFER, sizeof(ngl::Mat4), &_transform.m_00, GL_STATIC_DRAW);
-  //glGenTextures(1, &m_tboID);
   glActiveTexture( GL_TEXTURE0 );
   glBindTexture(GL_TEXTURE_BUFFER, m_tboID);
 
@@ -294,7 +288,6 @@ void NGLScene::keyPressEvent(QKeyEvent *_event)
       {
         m_win.spinXFace=0;
         m_win.spinYFace=0;
-       // m_modelPos.set(ngl::Vec3::zero());
         break;
       }
       // Toggle showing the mesh
