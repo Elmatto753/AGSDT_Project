@@ -24,7 +24,6 @@ SOURCES+= $$PWD/src/BaseObject.cpp \
           $$PWD/src/NGLScene.cpp \
           $$PWD/src/NGLSceneMouseControls.cpp \
           $$PWD/src/ObjectUpdateThread.cpp \
-          $$PWD/src/Particle.cpp \
           $$PWD/src/ParticleContainer.cpp
 
 # same for the .h files

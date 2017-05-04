@@ -1,17 +1,13 @@
 #include "ParticleContainer.h"
 
+//----------------------------------------------------------------------------------------------------------------------
+/// @file ParticleContainer.cpp
+/// @brief A container class for manipulating particles filling the mesh
+//----------------------------------------------------------------------------------------------------------------------
+
 ParticleContainer::ParticleContainer()
 {
-//  baseParticle = new Particle;
 
-//  m_numParticles = 10;
-
-//  particleList.resize(m_numParticles);
-
-//  for(auto &i : particleList)
-//  {
-//    i = new Particle;
-//  }
 }
 
 ParticleContainer::~ParticleContainer()
@@ -19,18 +15,16 @@ ParticleContainer::~ParticleContainer()
 
 }
 
+// Loads in the particle model
 void ParticleContainer::loadParticleModel()
 {
-  //baseParticle->m_ID = 0;
   m_mesh.reset(new ngl::Obj("models/Particle.obj"));
   m_mesh->scale(0.5f, 0.5f, 0.5f);
   m_mesh->createVAO();
   m_meshSize = m_mesh->getMeshSize();
-  //m_Mesh->getMeshSize();
-
 }
 
-
+// Makes a particle at the given position if it is inside the given mesh
 void ParticleContainer::makeParticleAt(ngl::Vec3 _Pos, std::shared_ptr<ngl::Obj> _Mesh)
 {
   if(testParticleInMesh(_Pos, _Mesh) == true)
@@ -42,18 +36,22 @@ void ParticleContainer::makeParticleAt(ngl::Vec3 _Pos, std::shared_ptr<ngl::Obj>
   }
 }
 
+// Casts a ray upward to test if a point is in the given mesh
 bool ParticleContainer::testParticleInMesh(ngl::Vec3 _Pos, std::shared_ptr<ngl::Obj> _Mesh)
 {
-  uint numHits = 0;
+  uint numHits = 0; // If this is odd, the particle is in the mesh
   Ray r;
-  r.m_direction = ngl::Vec3(0.0f, 1.0f, 0.0f);
+  r.m_direction = ngl::Vec3(0.0f, 1.0f, 0.0f); // Up vector
   r.m_startPoint = _Pos;
-  r.m_endPoint = (_Pos + (_Mesh->getBBox().height() * r.m_direction));
+  r.m_endPoint = (_Pos + (_Mesh->getBBox().height() * r.m_direction)); // The height of the mesh's bounding box, ensuring the ray travels far enough
   ngl::Vec3 u, v; // Triangle edge vectors
   ngl::Vec3 n; // Triangle normal
   ngl::Vec3 w0; // Vector between Ray start and triangle vertex
   ngl::Vec3 w; // Vector between intersection triangle vertex
   ngl::Vec3 I; // Intersection point of Ray with plane
+  // Loop though the mesh faces
+  // This code was adapted from http://geomalgorithms.com/a06-_intersect-2.html
+  // Written by Dan Sunday
   for(ngl::Face f : _Mesh->getFaceList())
   {
     //Test for degenerate tris
@@ -124,6 +122,7 @@ bool ParticleContainer::testParticleInMesh(ngl::Vec3 _Pos, std::shared_ptr<ngl::
 
 }
 
+// Finds the neighbouring particles for each particle
 void ParticleContainer::setParticleNeighbours(float _Xtest, float _Ytest, float _Ztest)
 {
   for(Particle *p : particleList)
@@ -143,6 +142,7 @@ void ParticleContainer::setParticleNeighbours(float _Xtest, float _Ytest, float 
   }
 }
 
+// Removes a particle from the particle list using the "Erase-remove idiom"
 void ParticleContainer::removeParticle(Particle *p)
 {
   particleList.erase(std::remove(particleList.begin(), particleList.end(), p), particleList.end());

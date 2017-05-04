@@ -1,10 +1,15 @@
 #include "ObjectUpdateThread.h"
 
+//----------------------------------------------------------------------------------------------------------------------
+/// @file ObjectUpdateThread.cpp
+/// @brief Implements thread for updating the impact object
+//----------------------------------------------------------------------------------------------------------------------
 
 ObjectUpdateThread::ObjectUpdateThread()
 {
+  // Set a timer and link it to UpdateObjects()
   m_timer = new QTimer(this);
-  connect(m_timer, SIGNAL(timeout()), this, SLOT(UpdateObjects()));
+  connect(m_timer, SIGNAL(timeout()), this, SLOT(updateObjects()));
   m_timer->start(16.6); // Roughly 60 updates per second
 }
 
@@ -15,25 +20,20 @@ ObjectUpdateThread::~ObjectUpdateThread()
 
 void ObjectUpdateThread::run()
 {
-//  while(true)
-//  {
 
-//  }
 }
 
+// Loads in the impact object mesh
 void ObjectUpdateThread::setUp()
 {
-
   m_impact.loadMesh("models/Sphere.obj");
 }
 
-void ObjectUpdateThread::UpdateObjects()
+// Locks and updates the object's position
+void ObjectUpdateThread::updateObjects()
 {
   QMutexLocker ml(&m_mutex);
-  m_impact.update();
-//  x++;
-//  std::cout<<x<<"\n";
-//  std::cout<<"This is thread yo\n";
+  m_impact.update();;
 }
 
 void ObjectUpdateThread::setImpactObjectDirection(ngl::Vec3 _dir)

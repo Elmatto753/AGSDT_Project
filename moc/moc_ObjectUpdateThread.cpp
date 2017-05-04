@@ -30,11 +30,11 @@ struct qt_meta_stringdata_ObjectUpdateThread_t {
 static const qt_meta_stringdata_ObjectUpdateThread_t qt_meta_stringdata_ObjectUpdateThread = {
     {
 QT_MOC_LITERAL(0, 0, 18), // "ObjectUpdateThread"
-QT_MOC_LITERAL(1, 19, 13), // "UpdateObjects"
+QT_MOC_LITERAL(1, 19, 13), // "updateObjects"
 QT_MOC_LITERAL(2, 33, 0) // ""
 
     },
-    "ObjectUpdateThread\0UpdateObjects\0"
+    "ObjectUpdateThread\0updateObjects\0"
 };
 #undef QT_MOC_LITERAL
 
@@ -66,7 +66,7 @@ void ObjectUpdateThread::qt_static_metacall(QObject *_o, QMetaObject::Call _c, i
         ObjectUpdateThread *_t = static_cast<ObjectUpdateThread *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
-        case 0: _t->UpdateObjects(); break;
+        case 0: _t->updateObjects(); break;
         default: ;
         }
     }

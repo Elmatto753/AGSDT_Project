@@ -6,20 +6,22 @@
 #include <ngl/Random.h>
 #include <iostream>
 
+//----------------------------------------------------------------------------------------------------------------------
+/// @file NGLScene.cpp
+/// @brief Sets up and draws the scene, passing data to the shader
+//----------------------------------------------------------------------------------------------------------------------
+
 NGLScene::NGLScene()
 {
   // re-size the widget to that of the parent (in this case the GLFrame passed in on construction)
   setTitle("Blank NGL");
 }
 
-
 NGLScene::~NGLScene()
 {
   ObjectUpdater->deleteLater();
   std::cout<<"Shutting down NGL, removing VAO's and Shaders\n";
 }
-
-
 
 void NGLScene::resizeGL(int _w , int _h)
 {
@@ -41,20 +43,21 @@ void NGLScene::initializeGL()
   // enable multisampling for smoother drawing
   glEnable(GL_MULTISAMPLE);
 
+  // Load the input mesh and particle model
   Input.loadMesh("models/Bomberman_fixed.obj");
-  //Input.makeParticles();
   Input.getContainer()->loadParticleModel();
   std::cout<<"Filling mesh with particles...\n";
+  // Turns the mesh into particles
   Input.makeParticles(10, 10, 10);
 
-  //Impact.loadMesh("models/Sphere.obj");
-
+  // Set up the camera
   m_cam.set(ngl::Vec3(0.0f, 5.0f, 15.0f),
           ngl::Vec3(0.0f, 4.0f, 0.0f),
           ngl::Vec3(0.0f, 1.0f, 0.0f));
 
   m_cam.setShape(45.0f, 720.0f/576.0f, 0.05f, 350.0f);
 
+  // Use NGL to attach the shader
   ngl::ShaderLib *shader =ngl::ShaderLib::instance();
 
   shader->createShaderProgram("Colour");
@@ -74,22 +77,9 @@ void NGLScene::initializeGL()
 
   (*shader)["Colour"]->use();
 
-//  shader->autoRegisterUniforms("Colour");
-//  shader->printProperties();
-//  shader->printRegisteredUniforms("Colour");
-
-//  shader->setRegisteredUniform("Colour",1.0f,1.0f,1.0f,0.0f);
-//  shader->setRegisteredUniform("lightPos",m_lightPos);
-//  shader->setRegisteredUniform("lightDiffuse",1.0f,1.0f,1.0f,1.0f);
-
-//  for(uint i=0; i< m_Container.getParticleList().size(); i++)
-//  {
-//    m_Container.setParticlePosition(i, ngl::Vec3(0.0f, 5.0f, 3.0f));
-//    std::cout<<m_Container.getParticleList().at(i)->m_Position.m_x<<"\n";
-//  }
-
   glEnable(GL_DEPTH_TEST);
 
+  // Establish the scene's light and materials
   m_light.reset(new ngl::Light(m_lightPos, ngl::Colour(1,1,1,1), ngl::LightModes::POINTLIGHT));
   ngl::Mat4 vm = m_cam.getViewMatrix();
   vm.transpose();
@@ -97,33 +87,16 @@ void NGLScene::initializeGL()
   m_light->loadToShader("light");
 
   ngl::Material m;
-  m.setAmbient(ngl::Colour(0.1, 0.1, 0.1, 1.0));
-  m.setDiffuse(ngl::Colour(1.0, 0.4, 0.1));
-  m.setSpecular(ngl::Colour(1, 1, 1));
+  m.setAmbient(ngl::Colour(0.5, 0.5, 0.5, 1.0));
+  m.setDiffuse(ngl::Colour(1.0, 1.0, 1.0));
+  m.setSpecular(ngl::Colour(0.5, 0.5, 0.5));
   m.setSpecularExponent(80);
   m.loadToShader("material");
 
+  // Generate buffers
   glGenBuffers(1, &tbo);
 
   setMultipleTransforms(ngl::Vec3(1.0f, 1.0f, 1.0f));
-
-
-  //setAllTransforms(Input.getContainer()->getBaseParticle()->m_Position, ngl::Vec3(1.0f, 1.0f, 1.0f));
-
-//  for(auto &t : transforms)
-//  {
-//    tx = m_Container.getBaseParticle()->m_Position;
-//    auto yScale=rng->randomPositiveNumber(2.0f)+0.5f;
-//    pos.translate(tx.m_x,0.0f,tx.m_z);
-//    scale.scale(yScale,yScale,yScale);
-//    t=scale*pos;
-//  }
-
-
-//  for(uint i = 0; i < Input.getContainer()->getParticleList().size(); i++)
-//  {
-//    Input.getContainer()->getParticleList().at(i)->m_Position = ngl::Vec3(0.0f, 0.0f, float(i));
-//  }
 
   glGenTextures(1, &m_tboID);
   glActiveTexture( GL_TEXTURE0 );
@@ -131,20 +104,20 @@ void NGLScene::initializeGL()
 
   glTexBuffer(GL_TEXTURE_BUFFER, GL_RGBA32F, tbo);
 
-  ngl::Texture t("models/Firefox_wallpaper.png");
+  ngl::Texture t("models/ParticleTexture.png");
   t.setMultiTexture(1);
   m_textureID=t.setTextureGL();
   shader->setShaderParam1i("tex",1);
   shader->setShaderParam1i("TBO",0);
 
+  // Start the object updater thread
   ObjectUpdater = new ObjectUpdateThread;
   ObjectUpdater->start();
   ObjectUpdater->setUp();
 
 }
 
-
-
+// Sends data to the shader
 void NGLScene::loadToShader()
 {
   ngl::ShaderLib *shader=ngl::ShaderLib::instance();
@@ -170,6 +143,7 @@ void NGLScene::loadToShader()
   shader->setUniform("VP", m_cam.getVPMatrix());
 }
 
+// Updates particle transforms
 void NGLScene::setMultipleTransforms(ngl::Vec3 _scale)
 {
   Input.getContainer()->getParticleList().shrink_to_fit();
@@ -209,6 +183,7 @@ void NGLScene::setMultipleTransforms(ngl::Vec3 _scale)
 
 }
 
+// Updates transform for a single object, such as the mesh
 void NGLScene::setSingleTransform(ngl::Mat4 _transform, ngl::Vec3 _pos, ngl::Vec3 _scale)
 {
   ngl::Mat4 pos;
@@ -234,23 +209,19 @@ void NGLScene::setMouseGlobal(ngl::Vec3 _pos)
   m_mouseGlobalTX.m_m[3][2] = _pos.m_z;
 }
 
-
+// Draw the scene
 void NGLScene::paintGL()
 {
   // clear the screen and depth buffer
-  //std::cout<<"PaintGL begin "<<durr<<"\n";
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   glViewport(0,0,m_win.width,m_win.height);
-
-  loadToShader();
-
-  //Input.getContainer()->getBaseParticle()->m_Position.m_y += 0.1;
 
   ngl::Mat4 rotX;
   ngl::Mat4 rotY;
   rotX.rotateX(m_win.spinXFace);
   rotY.rotateY(m_win.spinYFace);
 
+  // Set the position of the input mesh
   Input.setPosition(ngl::Vec3(0.0f, 0.0f, 0.0f));
   setSingleTransform(Input.getTransform() , Input.getPosition(), ngl::Vec3(1.0f, 1.0f, 1.0f));
 
@@ -259,6 +230,7 @@ void NGLScene::paintGL()
   Input.getMesh()->drawBBox();
   setMouseGlobal(Input.getPosition());
 
+  // Allow the original mesh to be displayed
   if(showInput == 1)
   {
     Input.getMesh()->bindVAO();
@@ -273,18 +245,16 @@ void NGLScene::paintGL()
     Input.getMesh()->unbindVAO();
   }
 
-  setMultipleTransforms(ngl::Vec3(1.0f, 1.0f, 1.0f));
-
-  //setMouseGlobal(Input.getContainer()->getBaseParticle()->m_Position);
+  setMultipleTransforms(ngl::Vec3(0.5f, 0.5f, 0.5f));
 
   Input.getContainer()->getMesh()->bindVAO();
-  //loadToShader(ngl::Vec4(1.0f, 0.0f, 1.0f, 0.0f));
 
   glActiveTexture(GL_TEXTURE0);
   glBindTexture(GL_TEXTURE_BUFFER, m_tboID);
   glActiveTexture(GL_TEXTURE1);
   glBindTexture(GL_TEXTURE_2D, m_textureID);
 
+  // Use instancing to improve performance
   glDrawArraysInstanced(GL_TRIANGLES, 0, Input.getContainer()->getMeshSize(), Input.getContainer()->getNumParticles());
   Input.getContainer()->getMesh()->unbindVAO();
 
@@ -304,11 +274,7 @@ void NGLScene::paintGL()
 
   ObjectUpdater->getImpactObject().getMesh()->unbindVAO();
 
-
   update();
-  //std::cout<<"PaintGL end "<<durr<<"\n";
-  //durr++;
-
 }
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -331,25 +297,23 @@ void NGLScene::keyPressEvent(QKeyEvent *_event)
        // m_modelPos.set(ngl::Vec3::zero());
         break;
       }
-  case Qt::Key_V :
+      // Toggle showing the mesh
+  case Qt::Key_M :
       {
         showInput = 1 - showInput;
         break;
       }
   case Qt::Key_Space :
       {
-        // Wrap in braces to allow mutex locker usage
-        std::cout<<"starting\n";
+        // Lock the Object Updater thread, set impact object variables and start the collision handling thread
         QMutexLocker ml(ObjectUpdater->getMutex());
         ObjectUpdater->setImpactObjectPosition(m_cam.getEye().toVec3());
-//        std::cout<<cam.getLook().toVec3().m_x<<" "<<cam.getLook().toVec3().m_y<<" "<<cam.getLook().toVec3().m_z<<"\n";
         ObjectUpdater->setImpactObjectDirection(ngl::Vec3((m_cam.getLook() - m_cam.getEye()).toVec3()));
         ObjectUpdater->setImpactObjectVelocity(0.2f);
         ObjectUpdater->setImpactObjectMass(1000.0f);
         ObjectUpdater->setImpactObjectRadius(1.0f);
         Collisions = new CollisionThread(Input, ObjectUpdater->getImpactObject(), ObjectUpdater);
         Collisions->start();
-        std::cout<<"set thread variables\n";
         break;
       }
   default : break;

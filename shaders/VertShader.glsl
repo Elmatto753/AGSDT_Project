@@ -1,4 +1,6 @@
 #version 410 core
+
+// This shader is adapted from one of Jon Macey's NGL demos on point lights
 layout (location=0) in vec3 inVert;
 layout (location=1) in vec2 inUV;
 layout (location=2) in vec3 inNormal;

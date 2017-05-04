@@ -1,4 +1,6 @@
 #version 410 core
+
+// This shader is adapted from one of Jon Macey's NGL demos on point lights
 in vec3 fragmentNormal;
 
 layout (location=0) out vec4 fragColour;
