@@ -1,11 +1,12 @@
 #ifndef NGLSCENE_H_
 #define NGLSCENE_H_
-#include <ngl/Vec3.h>
-#include <ngl/Transformation.h>
+#include <ngl/Camera.h>
 #include <ngl/Colour.h>
 #include <ngl/Light.h>
+#include <ngl/Material.h>
 #include <ngl/ShaderLib.h>
-#include <ngl/Camera.h>
+#include <ngl/Transformation.h>
+#include <ngl/Vec3.h>
 
 #include <QOpenGLWindow>
 #include "Model.h"
@@ -85,7 +86,7 @@ private:
     //----------------------------------------------------------------------------------------------------------------------
     void wheelEvent( QWheelEvent *_event);
 
-    void loadToShader();
+    void loadToShader(ngl::Vec4 _colour);
 
     void rotateCamAboutLook(float _x, float _y);
 
@@ -97,6 +98,9 @@ private:
     std::vector<ngl::Mat4> transforms;
 
     GLuint tbo;
+    GLuint m_textureID;
+    GLuint m_tboID;
+    GLuint m_colour;
 
 //    int durr = 0;
 
@@ -105,20 +109,19 @@ private:
     /// position for our model
     ngl::Vec3 m_modelPos;
 
-    ngl::Vec3 m_lightPos = ngl::Vec3(1.0f, 17.0f, 0.0f);
 
 //    ngl::Mat4 m_proj;
 //    ngl::Mat4 m_view;
 
     ngl::Mat4 m_mouseGlobalTX;
 
-    GLuint m_textureID;
-    GLuint m_tboID;
 
     char showInput = 0;
 
-    ngl::Camera cam;
+    ngl::Camera m_cam;
 
+    std::unique_ptr<ngl::Light> m_light;
+    ngl::Vec3 m_lightPos = ngl::Vec3(1.0f, 17.0f, 0.0f);
     ngl::Transformation m_transform;
 
     Model Input;

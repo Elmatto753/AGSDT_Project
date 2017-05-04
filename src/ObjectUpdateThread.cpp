@@ -49,6 +49,7 @@ void ObjectUpdateThread::setImpactObjectMass(float _mass)
 void ObjectUpdateThread::setImpactObjectRadius(float _rad)
 {
   m_Impact.setRadius(_rad);
+  std::cout<<m_Impact.getRadius()<<"\n";
 }
 
 void ObjectUpdateThread::setImpactObjectVelocity(float _vel)

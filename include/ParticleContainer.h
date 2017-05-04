@@ -7,6 +7,7 @@
 #define CUDA_CALLABLE_MEMBER
 #endif
 
+#include <algorithm>
 #include <ngl/Vec3.h>
 #include <ngl/Mat4.h>
 #include <ngl/Obj.h>
@@ -36,6 +37,8 @@ public:
 //  Particle* getBaseParticle() { return baseParticle; }
 
   std::vector<Particle*> getParticleList() { return particleList; }
+
+  void removeParticle(Particle *p);
 
   void setParticlePosition(uint _at, ngl::Vec3 _position);
 

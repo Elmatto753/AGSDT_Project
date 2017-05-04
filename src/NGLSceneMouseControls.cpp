@@ -16,6 +16,8 @@ void NGLScene::mouseMoveEvent( QMouseEvent* _event )
     m_win.spinYFace += static_cast<int>( 0.5f * diffx );
     m_win.origX = _event->x();
     m_win.origY = _event->y();
+    //m_cam.move(static_cast<int>( 0.5f * diffx ),static_cast<int>( 0.5f * diffy ), 0.0f);
+    //rotateCamAboutLook(diffx/100, diffy/100);
     update();
   }
   // right mouse translate code
@@ -25,8 +27,7 @@ void NGLScene::mouseMoveEvent( QMouseEvent* _event )
     int diffY = static_cast<int>( _event->y() - m_win.origYPos );
     m_win.origXPos = _event->x();
     m_win.origYPos = _event->y();
-    cam.move(-ZOOM * diffX * 0.005f, ZOOM * diffY * 0.005f, 0.0f);
-    //rotateCamAboutLook(diffX/100, diffY/100);
+    m_cam.move(-ZOOM * diffX * 0.005f, ZOOM * diffY * 0.005f, 0.0f);
     update();
   }
 }
@@ -75,11 +76,11 @@ void NGLScene::wheelEvent( QWheelEvent* _event )
   // check the diff of the wheel position (0 means no change)
   if ( _event->delta() > 0 )
   {
-    cam.move(0.0f, 0.0f, -ZOOM);
+    m_cam.move(0.0f, 0.0f, -ZOOM);
   }
   else if ( _event->delta() < 0 )
   {
-    cam.move(0.0f, 0.0f, ZOOM);
+    m_cam.move(0.0f, 0.0f, ZOOM);
   }
   update();
 }

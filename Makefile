@@ -525,6 +525,99 @@ moc/moc_CollisionThread.cpp: /opt/Qt5.7.0/5.7/gcc_64/include/QtCore/QThread \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qvarlengtharray.h \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qcontainerfwd.h \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qobject_impl.h \
+		include/Model.h \
+		include/BaseObject.h \
+		/home/i7677716/NGL/include/ngl/Obj.h \
+		/home/i7677716/NGL/include/ngl/Types.h \
+		/home/i7677716/NGL/include/ngl/glew.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtOpenGL/QGLContext \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtOpenGL/qgl.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qopengl.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qt_windows.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qopengles2ext.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qopenglext.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qwidget.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qwindowdefs.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qwindowdefs_win.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qmargins.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qpaintdevice.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qrect.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qsize.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qpoint.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qpalette.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qcolor.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qrgb.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qrgba64.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qbrush.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qvector.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qmatrix.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qpolygon.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qregion.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qdatastream.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qiodevice.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qline.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qtransform.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qpainterpath.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qimage.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qpixelformat.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qpixmap.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qsharedpointer.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qshareddata.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qhash.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qfont.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qfontmetrics.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qfontinfo.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qsizepolicy.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qcursor.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qkeysequence.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qevent.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qvariant.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qmap.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qdebug.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qtextstream.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qlocale.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qset.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qcontiguouscache.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qurl.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qurlquery.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qfile.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qfiledevice.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qvector2d.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qtouchdevice.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qpaintengine.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qpainter.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qtextoption.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qpen.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtOpenGL/qglcolormap.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtOpenGL/qtopenglglobal.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/QSurfaceFormat \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qsurfaceformat.h \
+		/home/i7677716/NGL/include/ngl/Texture.h \
+		/home/i7677716/NGL/include/ngl/Image.h \
+		/home/i7677716/NGL/include/ngl/Colour.h \
+		/home/i7677716/NGL/include/ngl/Vec4.h \
+		/home/i7677716/NGL/include/ngl/Vec2.h \
+		/home/i7677716/NGL/include/ngl/Vec3.h \
+		/home/i7677716/NGL/include/ngl/AbstractMesh.h \
+		/home/i7677716/NGL/include/ngl/BBox.h \
+		/home/i7677716/NGL/include/ngl/AbstractVAO.h \
+		/home/i7677716/NGL/include/ngl/RibExport.h \
+		/home/i7677716/NGL/include/ngl/NGLassert.h \
+		/home/i7677716/NGL/include/ngl/Mat4.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/QObject \
+		include/ParticleContainer.h \
+		include/Particle.h \
+		include/Ray.h \
+		include/ImpactObject.h \
+		include/ObjectUpdateThread.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/QThreadPool \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qthreadpool.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qrunnable.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/QMutexLocker \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/QTimer \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qtimer.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qbasictimer.h \
 		include/CollisionThread.h \
 		/opt/Qt5.7.0/5.7/gcc_64/bin/moc
 	/opt/Qt5.7.0/5.7/gcc_64/bin/moc $(DEFINES) -I/opt/Qt5.7.0/5.7/gcc_64/mkspecs/linux-g++ -I/home/i7677716/AGSDT_Assignment -I/home/i7677716/AGSDT_Assignment/include -I/home/i7677716/AGSDT_Assignment/cuda/include -I/usr/include/cuda -I/home/i7677716/NGL/include -I/opt/Qt5.7.0/5.7/gcc_64/include -I/opt/Qt5.7.0/5.7/gcc_64/include/QtOpenGL -I/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets -I/opt/Qt5.7.0/5.7/gcc_64/include/QtGui -I/opt/Qt5.7.0/5.7/gcc_64/include/QtCore -I/usr/include/c++/4.8.5 -I/usr/include/c++/4.8.5/x86_64-redhat-linux -I/usr/include/c++/4.8.5/backward -I/usr/lib/gcc/x86_64-redhat-linux/4.8.5/include -I/usr/local/include -I/usr/include include/CollisionThread.h -o moc/moc_CollisionThread.cpp
@@ -862,7 +955,100 @@ obj/CollisionThread.o: src/CollisionThread.cpp include/CollisionThread.h \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qmetatype.h \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qvarlengtharray.h \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qcontainerfwd.h \
-		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qobject_impl.h
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qobject_impl.h \
+		include/Model.h \
+		include/BaseObject.h \
+		/home/i7677716/NGL/include/ngl/Obj.h \
+		/home/i7677716/NGL/include/ngl/Types.h \
+		/home/i7677716/NGL/include/ngl/glew.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtOpenGL/QGLContext \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtOpenGL/qgl.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qopengl.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qt_windows.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qopengles2ext.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qopenglext.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qwidget.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qwindowdefs.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qwindowdefs_win.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qmargins.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qpaintdevice.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qrect.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qsize.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qpoint.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qpalette.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qcolor.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qrgb.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qrgba64.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qbrush.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qvector.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qmatrix.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qpolygon.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qregion.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qdatastream.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qiodevice.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qline.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qtransform.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qpainterpath.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qimage.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qpixelformat.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qpixmap.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qsharedpointer.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qshareddata.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qhash.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qfont.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qfontmetrics.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qfontinfo.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qsizepolicy.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qcursor.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qkeysequence.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qevent.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qvariant.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qmap.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qdebug.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qtextstream.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qlocale.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qset.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qcontiguouscache.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qurl.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qurlquery.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qfile.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qfiledevice.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qvector2d.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qtouchdevice.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qpaintengine.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qpainter.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qtextoption.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qpen.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtOpenGL/qglcolormap.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtOpenGL/qtopenglglobal.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/QSurfaceFormat \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qsurfaceformat.h \
+		/home/i7677716/NGL/include/ngl/Texture.h \
+		/home/i7677716/NGL/include/ngl/Image.h \
+		/home/i7677716/NGL/include/ngl/Colour.h \
+		/home/i7677716/NGL/include/ngl/Vec4.h \
+		/home/i7677716/NGL/include/ngl/Vec2.h \
+		/home/i7677716/NGL/include/ngl/Vec3.h \
+		/home/i7677716/NGL/include/ngl/AbstractMesh.h \
+		/home/i7677716/NGL/include/ngl/BBox.h \
+		/home/i7677716/NGL/include/ngl/AbstractVAO.h \
+		/home/i7677716/NGL/include/ngl/RibExport.h \
+		/home/i7677716/NGL/include/ngl/NGLassert.h \
+		/home/i7677716/NGL/include/ngl/Mat4.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/QObject \
+		include/ParticleContainer.h \
+		include/Particle.h \
+		include/Ray.h \
+		include/ImpactObject.h \
+		include/ObjectUpdateThread.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/QThreadPool \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qthreadpool.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qrunnable.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/QMutexLocker \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/QTimer \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qtimer.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qbasictimer.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o obj/CollisionThread.o src/CollisionThread.cpp
 
 obj/ImpactObject.o: src/ImpactObject.cpp include/ImpactObject.h \
@@ -1065,7 +1251,7 @@ obj/main.o: src/main.cpp /opt/Qt5.7.0/5.7/gcc_64/include/QtGui/QGuiApplication \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qsharedpointer_impl.h \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qsize.h \
 		include/NGLScene.h \
-		/home/i7677716/NGL/include/ngl/Vec3.h \
+		/home/i7677716/NGL/include/ngl/Camera.h \
 		/home/i7677716/NGL/include/ngl/Types.h \
 		/home/i7677716/NGL/include/ngl/glew.h \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtOpenGL/QGLContext \
@@ -1114,42 +1300,33 @@ obj/main.o: src/main.cpp /opt/Qt5.7.0/5.7/gcc_64/include/QtGui/QGuiApplication \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtOpenGL/qtopenglglobal.h \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/QSurfaceFormat \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qsurfaceformat.h \
-		/home/i7677716/NGL/include/ngl/Transformation.h \
-		/home/i7677716/NGL/include/ngl/Mat4.h \
-		/home/i7677716/NGL/include/ngl/NGLassert.h \
 		/home/i7677716/NGL/include/ngl/Vec4.h \
 		/home/i7677716/NGL/include/ngl/Vec2.h \
+		/home/i7677716/NGL/include/ngl/Vec3.h \
+		/home/i7677716/NGL/include/ngl/Mat4.h \
+		/home/i7677716/NGL/include/ngl/RibExport.h \
+		/home/i7677716/NGL/include/ngl/Plane.h \
+		/home/i7677716/NGL/include/ngl/AABB.h \
+		/home/i7677716/NGL/include/ngl/BBox.h \
+		/home/i7677716/NGL/include/ngl/AbstractVAO.h \
 		/home/i7677716/NGL/include/ngl/Colour.h \
 		/home/i7677716/NGL/include/ngl/Light.h \
+		/home/i7677716/NGL/include/ngl/Material.h \
 		/home/i7677716/NGL/include/ngl/ShaderLib.h \
 		/home/i7677716/NGL/include/ngl/Shader.h \
 		/home/i7677716/NGL/include/ngl/ShaderProgram.h \
 		/home/i7677716/NGL/include/ngl/Util.h \
 		/home/i7677716/NGL/include/ngl/Singleton.h \
 		/home/i7677716/NGL/include/ngl/Mat3.h \
-		/home/i7677716/NGL/include/ngl/Camera.h \
-		/home/i7677716/NGL/include/ngl/RibExport.h \
-		/home/i7677716/NGL/include/ngl/Plane.h \
-		/home/i7677716/NGL/include/ngl/AABB.h \
-		/home/i7677716/NGL/include/ngl/BBox.h \
-		/home/i7677716/NGL/include/ngl/AbstractVAO.h \
-		include/Model.h \
-		include/BaseObject.h \
-		/home/i7677716/NGL/include/ngl/Obj.h \
-		/home/i7677716/NGL/include/ngl/Texture.h \
-		/home/i7677716/NGL/include/ngl/Image.h \
-		/home/i7677716/NGL/include/ngl/AbstractMesh.h \
-		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/QObject \
-		include/ParticleContainer.h \
-		include/Particle.h \
-		include/Ray.h \
-		include/ImpactObject.h \
+		/home/i7677716/NGL/include/ngl/Transformation.h \
+		/home/i7677716/NGL/include/ngl/NGLassert.h \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/QOpenGLWindow \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qopenglwindow.h \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/QPaintDeviceWindow \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qpaintdevicewindow.h \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/QWindow \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qwindow.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/QObject \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/QEvent \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/QMargins \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/QRect \
@@ -1161,6 +1338,16 @@ obj/main.o: src/main.cpp /opt/Qt5.7.0/5.7/gcc_64/include/QtGui/QGuiApplication \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/QScopedPointer \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qopenglversionfunctions.h \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/QImage \
+		include/Model.h \
+		include/BaseObject.h \
+		/home/i7677716/NGL/include/ngl/Obj.h \
+		/home/i7677716/NGL/include/ngl/Texture.h \
+		/home/i7677716/NGL/include/ngl/Image.h \
+		/home/i7677716/NGL/include/ngl/AbstractMesh.h \
+		include/ParticleContainer.h \
+		include/Particle.h \
+		include/Ray.h \
+		include/ImpactObject.h \
 		include/ObjectUpdateThread.h \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/QThread \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qthread.h \
@@ -1171,6 +1358,7 @@ obj/main.o: src/main.cpp /opt/Qt5.7.0/5.7/gcc_64/include/QtGui/QGuiApplication \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/QTimer \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qtimer.h \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qbasictimer.h \
+		include/CollisionThread.h \
 		include/WindowParams.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o obj/main.o src/main.cpp
 
@@ -1390,7 +1578,7 @@ obj/NGLScene.o: src/NGLScene.cpp /opt/Qt5.7.0/5.7/gcc_64/include/QtGui/QMouseEve
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qeventloop.h \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qinputmethod.h \
 		include/NGLScene.h \
-		/home/i7677716/NGL/include/ngl/Vec3.h \
+		/home/i7677716/NGL/include/ngl/Camera.h \
 		/home/i7677716/NGL/include/ngl/Types.h \
 		/home/i7677716/NGL/include/ngl/glew.h \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtOpenGL/QGLContext \
@@ -1427,42 +1615,33 @@ obj/NGLScene.o: src/NGLScene.cpp /opt/Qt5.7.0/5.7/gcc_64/include/QtGui/QMouseEve
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtOpenGL/qtopenglglobal.h \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/QSurfaceFormat \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qsurfaceformat.h \
-		/home/i7677716/NGL/include/ngl/Transformation.h \
-		/home/i7677716/NGL/include/ngl/Mat4.h \
-		/home/i7677716/NGL/include/ngl/NGLassert.h \
 		/home/i7677716/NGL/include/ngl/Vec4.h \
 		/home/i7677716/NGL/include/ngl/Vec2.h \
+		/home/i7677716/NGL/include/ngl/Vec3.h \
+		/home/i7677716/NGL/include/ngl/Mat4.h \
+		/home/i7677716/NGL/include/ngl/RibExport.h \
+		/home/i7677716/NGL/include/ngl/Plane.h \
+		/home/i7677716/NGL/include/ngl/AABB.h \
+		/home/i7677716/NGL/include/ngl/BBox.h \
+		/home/i7677716/NGL/include/ngl/AbstractVAO.h \
 		/home/i7677716/NGL/include/ngl/Colour.h \
 		/home/i7677716/NGL/include/ngl/Light.h \
+		/home/i7677716/NGL/include/ngl/Material.h \
 		/home/i7677716/NGL/include/ngl/ShaderLib.h \
 		/home/i7677716/NGL/include/ngl/Shader.h \
 		/home/i7677716/NGL/include/ngl/ShaderProgram.h \
 		/home/i7677716/NGL/include/ngl/Util.h \
 		/home/i7677716/NGL/include/ngl/Singleton.h \
 		/home/i7677716/NGL/include/ngl/Mat3.h \
-		/home/i7677716/NGL/include/ngl/Camera.h \
-		/home/i7677716/NGL/include/ngl/RibExport.h \
-		/home/i7677716/NGL/include/ngl/Plane.h \
-		/home/i7677716/NGL/include/ngl/AABB.h \
-		/home/i7677716/NGL/include/ngl/BBox.h \
-		/home/i7677716/NGL/include/ngl/AbstractVAO.h \
-		include/Model.h \
-		include/BaseObject.h \
-		/home/i7677716/NGL/include/ngl/Obj.h \
-		/home/i7677716/NGL/include/ngl/Texture.h \
-		/home/i7677716/NGL/include/ngl/Image.h \
-		/home/i7677716/NGL/include/ngl/AbstractMesh.h \
-		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/QObject \
-		include/ParticleContainer.h \
-		include/Particle.h \
-		include/Ray.h \
-		include/ImpactObject.h \
+		/home/i7677716/NGL/include/ngl/Transformation.h \
+		/home/i7677716/NGL/include/ngl/NGLassert.h \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/QOpenGLWindow \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qopenglwindow.h \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/QPaintDeviceWindow \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qpaintdevicewindow.h \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/QWindow \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qwindow.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/QObject \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/QEvent \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/QMargins \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/QRect \
@@ -1474,6 +1653,16 @@ obj/NGLScene.o: src/NGLScene.cpp /opt/Qt5.7.0/5.7/gcc_64/include/QtGui/QMouseEve
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/QScopedPointer \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qopenglversionfunctions.h \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/QImage \
+		include/Model.h \
+		include/BaseObject.h \
+		/home/i7677716/NGL/include/ngl/Obj.h \
+		/home/i7677716/NGL/include/ngl/Texture.h \
+		/home/i7677716/NGL/include/ngl/Image.h \
+		/home/i7677716/NGL/include/ngl/AbstractMesh.h \
+		include/ParticleContainer.h \
+		include/Particle.h \
+		include/Ray.h \
+		include/ImpactObject.h \
 		include/ObjectUpdateThread.h \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/QThread \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qthread.h \
@@ -1484,6 +1673,7 @@ obj/NGLScene.o: src/NGLScene.cpp /opt/Qt5.7.0/5.7/gcc_64/include/QtGui/QMouseEve
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/QTimer \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qtimer.h \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qbasictimer.h \
+		include/CollisionThread.h \
 		include/WindowParams.h \
 		/home/i7677716/NGL/include/ngl/NGLInit.h \
 		/home/i7677716/NGL/include/ngl/VAOPrimitives.h \
@@ -1491,7 +1681,7 @@ obj/NGLScene.o: src/NGLScene.cpp /opt/Qt5.7.0/5.7/gcc_64/include/QtGui/QMouseEve
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o obj/NGLScene.o src/NGLScene.cpp
 
 obj/NGLSceneMouseControls.o: src/NGLSceneMouseControls.cpp include/NGLScene.h \
-		/home/i7677716/NGL/include/ngl/Vec3.h \
+		/home/i7677716/NGL/include/ngl/Camera.h \
 		/home/i7677716/NGL/include/ngl/Types.h \
 		/home/i7677716/NGL/include/ngl/glew.h \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtOpenGL/QGLContext \
@@ -1604,42 +1794,33 @@ obj/NGLSceneMouseControls.o: src/NGLSceneMouseControls.cpp include/NGLScene.h \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtOpenGL/qtopenglglobal.h \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/QSurfaceFormat \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qsurfaceformat.h \
-		/home/i7677716/NGL/include/ngl/Transformation.h \
-		/home/i7677716/NGL/include/ngl/Mat4.h \
-		/home/i7677716/NGL/include/ngl/NGLassert.h \
 		/home/i7677716/NGL/include/ngl/Vec4.h \
 		/home/i7677716/NGL/include/ngl/Vec2.h \
+		/home/i7677716/NGL/include/ngl/Vec3.h \
+		/home/i7677716/NGL/include/ngl/Mat4.h \
+		/home/i7677716/NGL/include/ngl/RibExport.h \
+		/home/i7677716/NGL/include/ngl/Plane.h \
+		/home/i7677716/NGL/include/ngl/AABB.h \
+		/home/i7677716/NGL/include/ngl/BBox.h \
+		/home/i7677716/NGL/include/ngl/AbstractVAO.h \
 		/home/i7677716/NGL/include/ngl/Colour.h \
 		/home/i7677716/NGL/include/ngl/Light.h \
+		/home/i7677716/NGL/include/ngl/Material.h \
 		/home/i7677716/NGL/include/ngl/ShaderLib.h \
 		/home/i7677716/NGL/include/ngl/Shader.h \
 		/home/i7677716/NGL/include/ngl/ShaderProgram.h \
 		/home/i7677716/NGL/include/ngl/Util.h \
 		/home/i7677716/NGL/include/ngl/Singleton.h \
 		/home/i7677716/NGL/include/ngl/Mat3.h \
-		/home/i7677716/NGL/include/ngl/Camera.h \
-		/home/i7677716/NGL/include/ngl/RibExport.h \
-		/home/i7677716/NGL/include/ngl/Plane.h \
-		/home/i7677716/NGL/include/ngl/AABB.h \
-		/home/i7677716/NGL/include/ngl/BBox.h \
-		/home/i7677716/NGL/include/ngl/AbstractVAO.h \
-		include/Model.h \
-		include/BaseObject.h \
-		/home/i7677716/NGL/include/ngl/Obj.h \
-		/home/i7677716/NGL/include/ngl/Texture.h \
-		/home/i7677716/NGL/include/ngl/Image.h \
-		/home/i7677716/NGL/include/ngl/AbstractMesh.h \
-		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/QObject \
-		include/ParticleContainer.h \
-		include/Particle.h \
-		include/Ray.h \
-		include/ImpactObject.h \
+		/home/i7677716/NGL/include/ngl/Transformation.h \
+		/home/i7677716/NGL/include/ngl/NGLassert.h \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/QOpenGLWindow \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qopenglwindow.h \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/QPaintDeviceWindow \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qpaintdevicewindow.h \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/QWindow \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qwindow.h \
+		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/QObject \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/QEvent \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/QMargins \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/QRect \
@@ -1651,6 +1832,16 @@ obj/NGLSceneMouseControls.o: src/NGLSceneMouseControls.cpp include/NGLScene.h \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/QScopedPointer \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qopenglversionfunctions.h \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/QImage \
+		include/Model.h \
+		include/BaseObject.h \
+		/home/i7677716/NGL/include/ngl/Obj.h \
+		/home/i7677716/NGL/include/ngl/Texture.h \
+		/home/i7677716/NGL/include/ngl/Image.h \
+		/home/i7677716/NGL/include/ngl/AbstractMesh.h \
+		include/ParticleContainer.h \
+		include/Particle.h \
+		include/Ray.h \
+		include/ImpactObject.h \
 		include/ObjectUpdateThread.h \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/QThread \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qthread.h \
@@ -1661,6 +1852,7 @@ obj/NGLSceneMouseControls.o: src/NGLSceneMouseControls.cpp include/NGLScene.h \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/QTimer \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qtimer.h \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qbasictimer.h \
+		include/CollisionThread.h \
 		include/WindowParams.h \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/QMouseEvent
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o obj/NGLSceneMouseControls.o src/NGLSceneMouseControls.cpp

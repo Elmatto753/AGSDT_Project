@@ -23,7 +23,7 @@ NGLScene::~NGLScene()
 
 void NGLScene::resizeGL(int _w , int _h)
 {
-  cam.setShape( 45.0f, static_cast<float>(_w)/_h, 0.05f, 350.0f );
+  m_cam.setShape( 45.0f, static_cast<float>(_w)/_h, 0.05f, 350.0f );
   m_win.width  = static_cast<int>( _w * devicePixelRatio() );
   m_win.height = static_cast<int>( _h * devicePixelRatio() );
 }
@@ -49,11 +49,11 @@ void NGLScene::initializeGL()
 
   //Impact.loadMesh("models/Sphere.obj");
 
-  cam.set(ngl::Vec3(0.0f, 5.0f, 15.0f),
+  m_cam.set(ngl::Vec3(0.0f, 5.0f, 15.0f),
           ngl::Vec3(0.0f, 4.0f, 0.0f),
           ngl::Vec3(0.0f, 1.0f, 0.0f));
 
-  cam.setShape(45.0f, 720.0f/576.0f, 0.05f, 350.0f);
+  m_cam.setShape(45.0f, 720.0f/576.0f, 0.05f, 350.0f);
 
   ngl::ShaderLib *shader =ngl::ShaderLib::instance();
 
@@ -90,7 +90,22 @@ void NGLScene::initializeGL()
 
   glEnable(GL_DEPTH_TEST);
 
+  m_light.reset(new ngl::Light(m_lightPos, ngl::Colour(1,1,1,1), ngl::LightModes::POINTLIGHT));
+  ngl::Mat4 vm = m_cam.getViewMatrix();
+  vm.transpose();
+  m_light->setTransform(vm);
+  m_light->loadToShader("light");
+
+  ngl::Material m;
+  m.setAmbient(ngl::Colour(0.1, 0.1, 0.1, 1.0));
+  m.setDiffuse(ngl::Colour(1.0, 0.4, 0.1));
+  m.setSpecular(ngl::Colour(1, 1, 1));
+  m.setSpecularExponent(80);
+  m.loadToShader("material");
+
   glGenBuffers(1, &tbo);
+
+  glGenBuffers(1, &m_colour);
 
   setMultipleTransforms(ngl::Vec3(0.0f, 0.0f, 0.0f), ngl::Vec3(1.0f, 1.0f, 1.0f));
 
@@ -118,7 +133,7 @@ void NGLScene::initializeGL()
 
   glTexBuffer(GL_TEXTURE_BUFFER, GL_RGBA32F, tbo);
 
-  ngl::Texture t("models/ParticleTexture.png");
+  ngl::Texture t("models/Firefox_wallpaper.png");
   t.setMultiTexture(1);
   m_textureID=t.setTextureGL();
   shader->setShaderParam1i("tex",1);
@@ -132,24 +147,44 @@ void NGLScene::initializeGL()
 
 
 
-void NGLScene::loadToShader()
+void NGLScene::loadToShader(ngl::Vec4 _colour)
 {
   ngl::ShaderLib *shader=ngl::ShaderLib::instance();
 
+  ngl::Mat4 MV;
+  ngl::Mat4 MVP;
+  ngl::Mat3 normalMatrix;
+  ngl::Mat4 M;
+  MV=M*m_mouseGlobalTX*m_cam.getViewMatrix();
+  MVP=MV*m_cam.getProjectionMatrix();
+  normalMatrix=MV;
+  normalMatrix.inverse();
+  shader->setRegisteredUniform("MV",MV);
+  shader->setShaderParamFromMat4("M",M);
+  shader->setRegisteredUniform("MVP",MVP);
+  shader->setShaderParamFromMat3("normalMatrix",normalMatrix);
+  shader->setShaderParam3f("viewerPos",m_cam.getEye().m_x,m_cam.getEye().m_y,m_cam.getEye().m_z);
+
   (*shader)["Colour"]->use();
-  shader->setUniform("mouseTX",m_mouseGlobalTX);
-  shader->setUniform("VP",cam.getVPMatrix());
+  m_light->setPosition(m_lightPos);
+  m_light->loadToShader("light");
+  shader->setUniform("mouseTX", m_mouseGlobalTX);
+  shader->setUniform("VP", m_cam.getVPMatrix());
+  shader->setRegisteredUniform("Colour", _colour);
 }
 
 void NGLScene::rotateCamAboutLook(float _x, float _y)
 {
   //float radius = ngl::Vec3(cam.getLook().toVec3() - cam.getEye().toVec3()).length();
-//  m_transform.addRotation(_x, _y, 0.0f);
-//  cam.moveEye(m_transform.getRotation().m_x, m_transform.getRotation().m_y, m_transform.getRotation().m_z);
+  //m_transform.addRotation(_x, _y, 0.0f);
+  //m_cam.moveEye(m_transform.getRotation().m_x, m_transform.getRotation().m_y, m_transform.getRotation().m_z);
+  //m_cam.setEye(m_cam.getEye() + ngl::Vec4(m_transform.getRotation().m_x, m_transform.getRotation().m_y, m_transform.getRotation().m_z, 0.0f));
 }
 
 void NGLScene::setMultipleTransforms(ngl::Vec3 _pos, ngl::Vec3 _scale)
 {
+  Input.getContainer()->getParticleList().shrink_to_fit();
+  transforms.clear();
   transforms.resize(Input.getContainer()->getNumParticles());
   //std::cout<<"numParticles: "<<Input.getContainer()->getNumParticles()<<"\n";
   ngl::Mat4 pos;
@@ -159,10 +194,19 @@ void NGLScene::setMultipleTransforms(ngl::Vec3 _pos, ngl::Vec3 _scale)
 
   for(uint i = 0; i < transforms.size(); i++)
   {
+    transforms.resize(Input.getContainer()->getNumParticles());
     position = Input.getContainer()->getParticleList().at(i)->m_Position;
 //    auto yScale=_scale;
     pos.translate(position.m_x, position.m_y, position.m_z);
-    scale.scale(_scale.m_x, _scale.m_y, _scale.m_z);
+    if(Input.getContainer()->getParticleList().at(i)->m_isBroken == false)
+    {
+      scale.scale(_scale.m_x, _scale.m_y, _scale.m_z);
+    }
+    else
+    {
+      Input.getContainer()->removeParticle(Input.getContainer()->getParticleList().at(i));
+      //scale.scale(0.0f, 0.0f, 0.0f);
+    }
     transforms.at(i)=scale*pos;
   }
 
@@ -209,6 +253,8 @@ void NGLScene::paintGL()
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   glViewport(0,0,m_win.width,m_win.height);
 
+  loadToShader(ngl::Vec4(1.0f, 1.0f, 1.0f, 0.0f));
+
   //Input.getContainer()->getBaseParticle()->m_Position.m_y += 0.1;
 
   ngl::Mat4 rotX;
@@ -227,7 +273,7 @@ void NGLScene::paintGL()
   if(showInput == 1)
   {
     Input.getMesh()->bindVAO();
-    loadToShader();
+    loadToShader(ngl::Vec4(1.0f, 1.0f, 1.0f, 0.0f));
 
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_BUFFER, m_tboID);
@@ -243,7 +289,7 @@ void NGLScene::paintGL()
   //setMouseGlobal(Input.getContainer()->getBaseParticle()->m_Position);
 
   Input.getContainer()->getMesh()->bindVAO();
-  loadToShader();
+  //loadToShader(ngl::Vec4(1.0f, 0.0f, 1.0f, 0.0f));
 
   glActiveTexture(GL_TEXTURE0);
   glBindTexture(GL_TEXTURE_BUFFER, m_tboID);
@@ -253,10 +299,12 @@ void NGLScene::paintGL()
   glDrawArraysInstanced(GL_TRIANGLES, 0, Input.getContainer()->getMeshSize(), Input.getContainer()->getNumParticles());
   Input.getContainer()->getMesh()->unbindVAO();
 
-  setSingleTransform(ObjectUpdater->getImpactObject().getTransform(), ObjectUpdater->getImpactObject().getPosition(), ngl::Vec3(1.0f, 1.0f, 1.0f));
+  setSingleTransform(ObjectUpdater->getImpactObject().getTransform(),
+                     ObjectUpdater->getImpactObject().getPosition(),
+                     2 * ngl::Vec3(ObjectUpdater->getImpactObject().getRadius(), ObjectUpdater->getImpactObject().getRadius(), ObjectUpdater->getImpactObject().getRadius()));
 
   ObjectUpdater->getImpactObject().getMesh()->bindVAO();
-  loadToShader();
+  loadToShader(ngl::Vec4(1.0f, 1.0f, 1.0f, 0.0f));
 
   glActiveTexture(GL_TEXTURE0);
   glBindTexture(GL_TEXTURE_BUFFER, m_tboID);
@@ -283,30 +331,38 @@ void NGLScene::keyPressEvent(QKeyEvent *_event)
   switch (_event->key())
   {
   // escape key to quit
-  case Qt::Key_Escape : QGuiApplication::exit(EXIT_SUCCESS); break;
+  case Qt::Key_Escape :
+      {
+        QGuiApplication::exit(EXIT_SUCCESS); break;
+      }
   case Qt::Key_R :
-      m_win.spinXFace=0;
-      m_win.spinYFace=0;
-      m_modelPos.set(ngl::Vec3::zero());
+      {
+        m_win.spinXFace=0;
+        m_win.spinYFace=0;
+       // m_modelPos.set(ngl::Vec3::zero());
+        break;
+      }
   case Qt::Key_V :
-      showInput = 1 - showInput;
+      {
+        showInput = 1 - showInput;
+        break;
+      }
   case Qt::Key_Space :
       {
         // Wrap in braces to allow mutex locker usage
         std::cout<<"starting\n";
         QMutexLocker ml(ObjectUpdater->getMutex());
-        ObjectUpdater->setImpactObjectPosition(cam.getEye().toVec3());
+        ObjectUpdater->setImpactObjectPosition(m_cam.getEye().toVec3());
 //        std::cout<<cam.getLook().toVec3().m_x<<" "<<cam.getLook().toVec3().m_y<<" "<<cam.getLook().toVec3().m_z<<"\n";
-        ObjectUpdater->setImpactObjectDirection(ngl::Vec3((cam.getLook() - cam.getEye()).toVec3()));
-        ObjectUpdater->setImpactObjectVelocity(0.1f);
-        ObjectUpdater->setImpactObjectMass(5.0f);
-        ObjectUpdater->setImpactObjectRadius(3.0f);
-        Collisions = new CollisionThread(Input, ObjectUpdater->getImpactObject());
+        ObjectUpdater->setImpactObjectDirection(ngl::Vec3((m_cam.getLook() - m_cam.getEye()).toVec3()));
+        ObjectUpdater->setImpactObjectVelocity(0.2f);
+        ObjectUpdater->setImpactObjectMass(1000.0f);
+        ObjectUpdater->setImpactObjectRadius(1.0f);
+        Collisions = new CollisionThread(Input, ObjectUpdater->getImpactObject(), ObjectUpdater);
         Collisions->start();
         std::cout<<"set thread variables\n";
+        break;
       }
-
-  break;
   default : break;
   }
   // finally update the GLWindow and re-draw

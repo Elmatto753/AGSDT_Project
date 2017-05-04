@@ -152,3 +152,11 @@ void ParticleContainer::setParticleNeighbours(float _Xtest, float _Ytest, float 
     }
   }
 }
+
+void ParticleContainer::removeParticle(Particle *p)
+{
+  particleList.erase(std::remove(particleList.begin(), particleList.end(), p), particleList.end());
+  particleList.shrink_to_fit();
+}
+
+

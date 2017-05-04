@@ -4,6 +4,7 @@
 #include <cstdio>
 #include <cstdlib>
 #include <iostream>
+#include <assert.h>
 #include <ngl/Obj.h>
 #include <ngl/Mat4.h>
 #include <QObject>
