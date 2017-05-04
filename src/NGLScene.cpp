@@ -184,7 +184,7 @@ void NGLScene::setMultipleTransforms(ngl::Vec3 _scale)
   for(uint i = 0; i < transforms.size(); i++)
   {
     transforms.resize(Input.getContainer()->getNumParticles());
-    position = Input.getContainer()->getParticleList().at(i)->m_Position;
+    position = Input.getContainer()->getParticleList().at(i)->m_position;
 //    auto yScale=_scale;
     pos.translate(position.m_x, position.m_y, position.m_z);
     if(Input.getContainer()->getParticleList().at(i)->m_isBroken == false)

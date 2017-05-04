@@ -38,47 +38,41 @@ HEADERS+= $$PWD/include/BaseObject.h \
           $$PWD/include/ParticleContainer.h \
           $$PWD/include/Ray.h \
           $$PWD/include/WindowParams.h
-# Cuda sources
-CUDA_SOURCES += $$PWD/cuda/src/ParticleContainer.cu
 
-CUDA_HEADERS += $$PWD/cuda/include/ParticleContainer.cuh
-
-#Cuda objects
-CUDA_OBJECTS_DIR = $$PWD/cuda/obj
-
+# Didn't end up using CUDA, but will leave things commented for future reference
 # and add the include dir into the search path for Qt and make
 INCLUDEPATH +=./include
-INCLUDEPATH += $$PWD/cuda/include
+#INCLUDEPATH += $$PWD/cuda/include
 
-CUDA_PATH = "/usr"
-NVCC_CXXFLAGS += -ccbin g++
-NVCC = $(CUDA_PATH)/bin/nvcc
+#CUDA_PATH = "/usr"
+#NVCC_CXXFLAGS += -ccbin g++
+#NVCC = $(CUDA_PATH)/bin/nvcc
 
-NVCC_OPTIONS = --use_fast_math
+#NVCC_OPTIONS = --use_fast_math
 
-OS_SIZE = 64
+#OS_SIZE = 64
 # Compute capabilities
-SMS = 50 52
+#SMS = 50 52
 
-for(sm, SMS) {
-  GENCODE_FLAGS += -gencode arch=compute_$$sm,code=sm_$$sm
-}
+#for(sm, SMS) {
+#  GENCODE_FLAGS += -gencode arch=compute_$$sm,code=sm_$$sm
+#}
 
-INCLUDEPATH += /usr/include/cuda
+#INCLUDEPATH += /usr/include/cuda
 
-CUDA_INCLUDES = $$join(INCLUDEPATH, ' -I', '-I', '')
+#CUDA_INCLUDES = $$join(INCLUDEPATH, ' -I', '-I', '')
 
-QMAKE_LIBDIR += $$CUDA_PATH/lib
-LIBS += -lcudart
+#QMAKE_LIBDIR += $$CUDA_PATH/lib
+#LIBS += -lcudart
 
-OTHER_FILES += $$CUDA_SOURCES $$CUDA_HEADERS
+#OTHER_FILES += $$CUDA_SOURCES $$CUDA_HEADERS
 
-cuda.input = CUDA_SOURCES
-cuda.output = $$CUDA_OBJECTS_DIR/${QMAKE_FILE_BASE}_cuda.o
-cuda.commands = $$NVCC $$NVCC_CXXFLAGS -m$$OS_SIZE $$GENCODE_FLAGS -c -o ${QMAKE_FILE_OUT} ${QMAKE_FILE_NAME} $$NVCC_OPTIONS $$CUDA_INCLUDES
-cuda.dependency_type = TYPE_C
+#cuda.input = CUDA_SOURCES
+#cuda.output = $$CUDA_OBJECTS_DIR/${QMAKE_FILE_BASE}_cuda.o
+#cuda.commands = $$NVCC $$NVCC_CXXFLAGS -m$$OS_SIZE $$GENCODE_FLAGS -c -o ${QMAKE_FILE_OUT} ${QMAKE_FILE_NAME} $$NVCC_OPTIONS $$CUDA_INCLUDES
+#cuda.dependency_type = TYPE_C
 
-QMAKE_EXTRA_COMPILERS += cuda
+#QMAKE_EXTRA_COMPILERS += cuda
 #CUDA_ARCH = sm_20
 
 #NVCCFLAGS     = --compiler-options -fno-strict-aliasing -use_fast_math --ptxas-options=-v

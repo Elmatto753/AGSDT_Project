@@ -1,12 +1,6 @@
 #ifndef PARTICLECONTAINER_H_
 #define PARTICLECONTAINER_H_
 
-#ifdef __CUDACC__
-#define CUDA_CALLABLE_MEMBER __host__ __device__
-#else
-#define CUDA_CALLABLE_MEMBER
-#endif
-
 #include <algorithm>
 #include <ngl/Vec3.h>
 #include <ngl/Mat4.h>
@@ -14,6 +8,16 @@
 #include "Particle.h"
 #include "Ray.h"
 
+//----------------------------------------------------------------------------------------------------------------------
+/// @file ParticleContainer.h
+/// @brief Container for a set of particles, owned by a model
+/// @author Matt Skellon
+/// @version 1.0
+/// @date 04/05/17
+/// @class ParticleContainer
+/// Revision History :
+/// Initial version
+//----------------------------------------------------------------------------------------------------------------------
 
 class ParticleContainer
 {
@@ -31,11 +35,11 @@ public:
   //----------------------------------------------------------------------------------------------------------------------
     /// @brief Getter for the particle mesh
   //----------------------------------------------------------------------------------------------------------------------
-  std::shared_ptr<ngl::Obj> getMesh() { return m_Mesh; }
+  std::shared_ptr<ngl::Obj> getMesh() { return m_mesh; }
   //----------------------------------------------------------------------------------------------------------------------
     /// @brief Getter for the size of the particle mesh
   //----------------------------------------------------------------------------------------------------------------------
-  uint getMeshSize() { return m_MeshSize; }
+  uint getMeshSize() { return m_meshSize; }
   //----------------------------------------------------------------------------------------------------------------------
     /// @brief Getter for the number of particles inside the mesh
   //----------------------------------------------------------------------------------------------------------------------
@@ -78,11 +82,11 @@ private:
   //----------------------------------------------------------------------------------------------------------------------
     /// @brief Mesh to be used for displaying particles
   //----------------------------------------------------------------------------------------------------------------------
-  std::shared_ptr<ngl::Obj> m_Mesh;
+  std::shared_ptr<ngl::Obj> m_mesh;
   //----------------------------------------------------------------------------------------------------------------------
     /// @brief Size of the mesh
   //----------------------------------------------------------------------------------------------------------------------
-  uint m_MeshSize;
+  uint m_meshSize;
 
 };
 

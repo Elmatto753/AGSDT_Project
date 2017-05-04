@@ -4,6 +4,17 @@
 #include "BaseObject.h"
 #include "ParticleContainer.h"
 
+//----------------------------------------------------------------------------------------------------------------------
+/// @file Model.h
+/// @brief Class for input models to be turned into particles, inherits from BaseObject
+/// @author Matt Skellon
+/// @version 1.0
+/// @date 04/05/17
+/// @class Model
+/// Revision History :
+/// Initial version
+//----------------------------------------------------------------------------------------------------------------------
+
 class Model : public BaseObject
 {
 private:
@@ -11,7 +22,7 @@ private:
   //----------------------------------------------------------------------------------------------------------------------
     /// @brief Object to hold and manipulate the particles in this mesh
   //----------------------------------------------------------------------------------------------------------------------
-  ParticleContainer m_Container;
+  ParticleContainer m_container;
 
 public:
 
@@ -26,7 +37,7 @@ public:
   //----------------------------------------------------------------------------------------------------------------------
     /// @brief Getter for the particle container
   //----------------------------------------------------------------------------------------------------------------------
-  ParticleContainer* getContainer() { return &m_Container; }
+  ParticleContainer* getContainer() { return &m_container; }
   //----------------------------------------------------------------------------------------------------------------------
     /// @brief Moves this object
     /// @param [in] _delta The amount to move the object by

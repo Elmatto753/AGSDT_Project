@@ -22,30 +22,21 @@ ParticleContainer::~ParticleContainer()
 void ParticleContainer::loadParticleModel()
 {
   //baseParticle->m_ID = 0;
-  m_Mesh.reset(new ngl::Obj("models/Particle.obj"));
-  m_Mesh->scale(0.5f, 0.5f, 0.5f);
-  m_Mesh->createVAO();
-  m_MeshSize = m_Mesh->getMeshSize();
+  m_mesh.reset(new ngl::Obj("models/Particle.obj"));
+  m_mesh->scale(0.5f, 0.5f, 0.5f);
+  m_mesh->createVAO();
+  m_meshSize = m_mesh->getMeshSize();
   //m_Mesh->getMeshSize();
 
 }
 
-void ParticleContainer::drawParticles()
-{
-  //baseParticle->m_Mesh->bindVAO();
-}
-
-void ParticleContainer::setParticlePosition(uint _at, ngl::Vec3 _position)
-{
-  particleList.at(_at)->m_Position = _position;
-}
 
 void ParticleContainer::makeParticleAt(ngl::Vec3 _Pos, std::shared_ptr<ngl::Obj> _Mesh)
 {
   if(testParticleInMesh(_Pos, _Mesh) == true)
   {
     Particle *p = new Particle;
-    p->m_Position = _Pos;
+    p->m_position = _Pos;
     p->m_ID = particleList.size();
     particleList.push_back(p);
   }
@@ -55,15 +46,14 @@ bool ParticleContainer::testParticleInMesh(ngl::Vec3 _Pos, std::shared_ptr<ngl::
 {
   uint numHits = 0;
   Ray r;
-  r.m_Direction = ngl::Vec3(0.0f, 1.0f, 0.0f);
-  r.m_StartPoint = _Pos;
-  r.m_EndPoint = (_Pos + (_Mesh->getBBox().height() * r.m_Direction));
+  r.m_direction = ngl::Vec3(0.0f, 1.0f, 0.0f);
+  r.m_startPoint = _Pos;
+  r.m_endPoint = (_Pos + (_Mesh->getBBox().height() * r.m_direction));
   ngl::Vec3 u, v; // Triangle edge vectors
   ngl::Vec3 n; // Triangle normal
   ngl::Vec3 w0; // Vector between Ray start and triangle vertex
   ngl::Vec3 w; // Vector between intersection triangle vertex
   ngl::Vec3 I; // Intersection point of Ray with plane
-//  ngl::Vec3 pos = p->m_Position;
   for(ngl::Face f : _Mesh->getFaceList())
   {
     //Test for degenerate tris
@@ -76,9 +66,9 @@ bool ParticleContainer::testParticleInMesh(ngl::Vec3 _Pos, std::shared_ptr<ngl::
       continue;
     }
 
-    w0 = r.m_StartPoint - _Mesh->getVertexAtIndex(f.m_vert.at(0));
+    w0 = r.m_startPoint - _Mesh->getVertexAtIndex(f.m_vert.at(0));
     float a = -(n.dot(w0));
-    float b = n.dot(r.m_Direction);
+    float b = n.dot(r.m_direction);
     if(fabs(b) < 0.0000001f) // Ray is parallel to triangle
     {
       if(a == 0) // Ray passes through triangle plane
@@ -99,7 +89,7 @@ bool ParticleContainer::testParticleInMesh(ngl::Vec3 _Pos, std::shared_ptr<ngl::
       continue;
     }
 
-    I = r.m_StartPoint + (x * r.m_Direction); // Intersection
+    I = r.m_startPoint + (x * r.m_direction); // Intersection
 
     // Test if Intersection with plane is in triangle
     w = I - _Mesh->getVertexAtIndex(f.m_vert.at(0));
@@ -140,12 +130,12 @@ void ParticleContainer::setParticleNeighbours(float _Xtest, float _Ytest, float 
   {
     for(Particle *q : particleList)
     {
-      if(p->m_Position + ngl::Vec3(_Xtest, 0.0f, 0.0f) == q->m_Position ||
-         p->m_Position - ngl::Vec3(_Xtest, 0.0f, 0.0f) == q->m_Position ||
-         p->m_Position + ngl::Vec3(0.0f, _Ytest, 0.0f) == q->m_Position ||
-         p->m_Position - ngl::Vec3(0.0f, _Ytest, 0.0f) == q->m_Position ||
-         p->m_Position + ngl::Vec3(0.0f, 0.0f, _Ztest) == q->m_Position ||
-         p->m_Position - ngl::Vec3(0.0f, 0.0f, _Ztest) == q->m_Position)
+      if(p->m_position + ngl::Vec3(_Xtest, 0.0f, 0.0f) == q->m_position ||
+         p->m_position - ngl::Vec3(_Xtest, 0.0f, 0.0f) == q->m_position ||
+         p->m_position + ngl::Vec3(0.0f, _Ytest, 0.0f) == q->m_position ||
+         p->m_position - ngl::Vec3(0.0f, _Ytest, 0.0f) == q->m_position ||
+         p->m_position + ngl::Vec3(0.0f, 0.0f, _Ztest) == q->m_position ||
+         p->m_position - ngl::Vec3(0.0f, 0.0f, _Ztest) == q->m_position)
       {
         p->connectedParticles.push_back(q);
       }
